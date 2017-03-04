@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.aygxy.fmaket.Application;
 import com.aygxy.fmaket.net.jsonbean.UserAccount;
 import com.aygxy.fmaket.net.procatal.Body;
+import com.aygxy.fmaket.net.procatal.BodyProvider;
 import com.aygxy.fmaket.net.procatal.Oelement;
 import com.aygxy.fmaket.param.GlobalParams;
 import com.aygxy.fmaket.param.OelementType;
@@ -37,8 +38,7 @@ public class AccountAction {
 		String body = (String) request.getAttribute("body");
 		logger.debug("Action accept context="+body);
 		UserAccount user = GsonUtil.stringToObjectByBean(body, UserAccount.class);
-		boolean result = false;
-		Body rbody = new Body();
+		Body resultbody =  BodyProvider.getFaildBody("登录失败");
 		if(null != user.getUsername() && null != user.getUserpassword()){
 			Account a = aService.login(user.getUsername(), user.getUserpassword());
 			if(null != a){
@@ -46,20 +46,20 @@ public class AccountAction {
 				token.setUserId(a.getUserid());
 				token.setCreateTime(System.currentTimeMillis()+"");
 				token.setTokenId(UUID.randomUUID().toString());
-				token.setToken(a.getUserid().substring(0, 12) + "_" + UUID.randomUUID().toString());
+				String temptoken = a.getUserid().substring(0, 12) + "_" + UUID.randomUUID().toString();
+				token.setToken(temptoken);
 				Application.Instance().putToken(token);
-				result = true;
+				resultbody =  BodyProvider.getSuccessBody("登录成功");
+				resultbody.setToken(temptoken);
 			}
 		}
-		if(result){
-			rbody.setOelement(new Oelement(OelementType.SUCCESS,"登录成功"));
-			request.getSession().setAttribute(GlobalParams.RESULT, rbody);
-//			return "SUCCESS";
-		}else{
-			rbody.setOelement(new Oelement(OelementType.FAILD,"登录失败"));
-			request.getSession().setAttribute(GlobalParams.RESULT, rbody);
-//			return "ERROR";
-		}
+		request.getSession().setAttribute(GlobalParams.RESULT,resultbody);
+	}
+	
+	@RequestMapping("checkToken.action")
+	@ResponseBody
+	public void checkToken(HttpServletRequest request){
+		request.getSession().setAttribute(GlobalParams.RESULT, BodyProvider.getSuccessBody("token校验成功"));
 	}
 	
 	
