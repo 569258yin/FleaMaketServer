@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aygxy.fmaket.user.dao.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.aygxy.fmaket.user.entity.UserInfo" >
+    <id column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="usersex" property="usersex" jdbcType="INTEGER" />
+    <result column="userage" property="userage" jdbcType="INTEGER" />
+    <result column="useraddress" property="useraddress" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="signature" property="signature" jdbcType="VARCHAR" />
+    <result column="qqnumber" property="qqnumber" jdbcType="VARCHAR" />
+    <result column="wxnumber" property="wxnumber" jdbcType="VARCHAR" />
+    <result column="colleage" property="colleage" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="usericon" property="usericon" jdbcType="VARCHAR" />
+    <result column="userphone" property="userphone" jdbcType="VARCHAR" />
+    <result column="validatenumber" property="validatenumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    userid, usersex, userage, useraddress, nickname, signature, qqnumber, wxnumber, colleage, 
+    school, usericon, userphone, validatenumber
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where userid = #{userid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_info
+    where userid = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.aygxy.fmaket.user.entity.UserInfo" >
+    insert into user_info (userid, usersex, userage, 
+      useraddress, nickname, signature, 
+      qqnumber, wxnumber, colleage, 
+      school, usericon, userphone, 
+      validatenumber)
+    values (#{userid,jdbcType=VARCHAR}, #{usersex,jdbcType=INTEGER}, #{userage,jdbcType=INTEGER}, 
+      #{useraddress,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, 
+      #{qqnumber,jdbcType=VARCHAR}, #{wxnumber,jdbcType=VARCHAR}, #{colleage,jdbcType=VARCHAR}, 
+      #{school,jdbcType=VARCHAR}, #{usericon,jdbcType=VARCHAR}, #{userphone,jdbcType=VARCHAR}, 
+      #{validatenumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aygxy.fmaket.user.entity.UserInfo" >
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="usersex != null" >
+        usersex,
+      </if>
+      <if test="userage != null" >
+        userage,
+      </if>
+      <if test="useraddress != null" >
+        useraddress,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="signature != null" >
+        signature,
+      </if>
+      <if test="qqnumber != null" >
+        qqnumber,
+      </if>
+      <if test="wxnumber != null" >
+        wxnumber,
+      </if>
+      <if test="colleage != null" >
+        colleage,
+      </if>
+      <if test="school != null" >
+        school,
+      </if>
+      <if test="usericon != null" >
+        usericon,
+      </if>
+      <if test="userphone != null" >
+        userphone,
+      </if>
+      <if test="validatenumber != null" >
+        validatenumber,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="usersex != null" >
+        #{usersex,jdbcType=INTEGER},
+      </if>
+      <if test="userage != null" >
+        #{userage,jdbcType=INTEGER},
+      </if>
+      <if test="useraddress != null" >
+        #{useraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null" >
+        #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="qqnumber != null" >
+        #{qqnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="wxnumber != null" >
+        #{wxnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="colleage != null" >
+        #{colleage,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="usericon != null" >
+        #{usericon,jdbcType=VARCHAR},
+      </if>
+      <if test="userphone != null" >
+        #{userphone,jdbcType=VARCHAR},
+      </if>
+      <if test="validatenumber != null" >
+        #{validatenumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aygxy.fmaket.user.entity.UserInfo" >
+    update user_info
+    <set >
+      <if test="usersex != null" >
+        usersex = #{usersex,jdbcType=INTEGER},
+      </if>
+      <if test="userage != null" >
+        userage = #{userage,jdbcType=INTEGER},
+      </if>
+      <if test="useraddress != null" >
+        useraddress = #{useraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null" >
+        signature = #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="qqnumber != null" >
+        qqnumber = #{qqnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="wxnumber != null" >
+        wxnumber = #{wxnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="colleage != null" >
+        colleage = #{colleage,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="usericon != null" >
+        usericon = #{usericon,jdbcType=VARCHAR},
+      </if>
+      <if test="userphone != null" >
+        userphone = #{userphone,jdbcType=VARCHAR},
+      </if>
+      <if test="validatenumber != null" >
+        validatenumber = #{validatenumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aygxy.fmaket.user.entity.UserInfo" >
+    update user_info
+    set usersex = #{usersex,jdbcType=INTEGER},
+      userage = #{userage,jdbcType=INTEGER},
+      useraddress = #{useraddress,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      signature = #{signature,jdbcType=VARCHAR},
+      qqnumber = #{qqnumber,jdbcType=VARCHAR},
+      wxnumber = #{wxnumber,jdbcType=VARCHAR},
+      colleage = #{colleage,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      usericon = #{usericon,jdbcType=VARCHAR},
+      userphone = #{userphone,jdbcType=VARCHAR},
+      validatenumber = #{validatenumber,jdbcType=VARCHAR}
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+</mapper>

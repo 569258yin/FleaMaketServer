@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aygxy.fmaket.user.dao.TokenMapper" >
+  <resultMap id="BaseResultMap" type="com.aygxy.fmaket.user.entity.Token" >
+    <id column="tokenid" property="tokenId" jdbcType="VARCHAR" />
+    <result column="token" property="token" jdbcType="VARCHAR" />
+    <result column="userid" property="userId" jdbcType="VARCHAR" />
+    <result column="createtime" property="createTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tokenid, token, userid,createtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from account_token
+    where tokenId = #{tokenId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectAllToken" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from account_token
+  </select>
+ 	
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from account_token
+    where tokenId = #{tokenId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.aygxy.fmaket.user.entity.Token" >
+    insert into account_token (tokenid, token, userid,createtime
+      )
+    values (#{tokenId,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aygxy.fmaket.user.entity.Token" >
+    insert into account_token
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tokenId != null" >
+        tokenid,
+      </if>
+      <if test="token != null" >
+        token,
+      </if>
+      <if test="userId != null" >
+        userid,
+      </if>
+      <if test="createTime != null" >
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tokenId != null" >
+        #{tokenId,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aygxy.fmaket.user.entity.Token" >
+    update account_token
+    <set >
+      <if test="token != null" >
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null" >
+        userid = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        createtime = #{createTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tokenid = #{tokenId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aygxy.fmaket.user.entity.Token" >
+    update account_token
+    set token = #{token,jdbcType=VARCHAR},
+      userid = #{userId,jdbcType=VARCHAR},
+      createtime = #{createTime,jdbcType=VARCHAR}
+    where tokenid = #{tokenId,jdbcType=VARCHAR}
+  </update>
+</mapper>

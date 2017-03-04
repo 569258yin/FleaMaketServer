@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aygxy.fmaket.goods.dao.GoodsRepalyMapper" >
+  <resultMap id="BaseResultMap" type="com.aygxy.fmaket.goods.entity.GoodsRepaly" >
+    <id column="goodsReplayId" property="goodsreplayid" jdbcType="VARCHAR" />
+    <result column="userId" property="userid" jdbcType="VARCHAR" />
+    <result column="goodsReplayTime" property="goodsreplaytime" jdbcType="TIMESTAMP" />
+    <result column="goodsReplayContent" property="goodsreplaycontent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goodsReplayId, userId, goodsReplayTime, goodsReplayContent
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from goodsrepaly
+    where goodsReplayId = #{goodsreplayid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from goodsrepaly
+    where goodsReplayId = #{goodsreplayid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.aygxy.fmaket.goods.entity.GoodsRepaly" >
+    insert into goodsrepaly (goodsReplayId, userId, goodsReplayTime, 
+      goodsReplayContent)
+    values (#{goodsreplayid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{goodsreplaytime,jdbcType=TIMESTAMP}, 
+      #{goodsreplaycontent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aygxy.fmaket.goods.entity.GoodsRepaly" >
+    insert into goodsrepaly
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsreplayid != null" >
+        goodsReplayId,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="goodsreplaytime != null" >
+        goodsReplayTime,
+      </if>
+      <if test="goodsreplaycontent != null" >
+        goodsReplayContent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsreplayid != null" >
+        #{goodsreplayid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsreplaytime != null" >
+        #{goodsreplaytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsreplaycontent != null" >
+        #{goodsreplaycontent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aygxy.fmaket.goods.entity.GoodsRepaly" >
+    update goodsrepaly
+    <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsreplaytime != null" >
+        goodsReplayTime = #{goodsreplaytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsreplaycontent != null" >
+        goodsReplayContent = #{goodsreplaycontent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where goodsReplayId = #{goodsreplayid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aygxy.fmaket.goods.entity.GoodsRepaly" >
+    update goodsrepaly
+    set userId = #{userid,jdbcType=VARCHAR},
+      goodsReplayTime = #{goodsreplaytime,jdbcType=TIMESTAMP},
+      goodsReplayContent = #{goodsreplaycontent,jdbcType=VARCHAR}
+    where goodsReplayId = #{goodsreplayid,jdbcType=VARCHAR}
+  </update>
+</mapper>

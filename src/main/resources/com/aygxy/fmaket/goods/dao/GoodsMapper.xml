@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aygxy.fmaket.goods.dao.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.aygxy.fmaket.goods.entity.Goods" >
+    <id column="goodsId" property="goodsid" jdbcType="VARCHAR" />
+    <result column="userId" property="userid" jdbcType="VARCHAR" />
+    <result column="goodsTypeId" property="goodstypeid" jdbcType="INTEGER" />
+    <result column="goodsTitle" property="goodstitle" jdbcType="VARCHAR" />
+    <result column="goodsTime" property="goodstime" jdbcType="TIMESTAMP" />
+    <result column="goodsText" property="goodstext" jdbcType="VARCHAR" />
+    <result column="goodsMoney" property="goodsmoney" jdbcType="VARCHAR" />
+    <result column="goodSoldmoney" property="goodsoldmoney" jdbcType="VARCHAR" />
+    <result column="goodSquality" property="goodsquality" jdbcType="VARCHAR" />
+    <result column="goodsIconNumber" property="goodsiconnumber" jdbcType="INTEGER" />
+    <result column="userAddress" property="useraddress" jdbcType="VARCHAR" />
+    <result column="userPhone" property="userphone" jdbcType="VARCHAR" />
+    <result column="coonectTime" property="coonecttime" jdbcType="VARCHAR" />
+    <result column="goodsLikeNum" property="goodslikenum" jdbcType="INTEGER" />
+    <result column="goodsRepalynum" property="goodsrepalynum" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.aygxy.fmaket.goods.entity.Goods" extends="BaseResultMap" >
+    <result column="goodsIcon" property="goodsicon" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goodsId, userId, goodsTypeId, goodsTitle, goodsTime, goodsText, goodsMoney, goodSoldmoney, 
+    goodSquality, goodsIconNumber, userAddress, userPhone, coonectTime, goodsLikeNum, 
+    goodsRepalynum
+  </sql>
+  <sql id="Blob_Column_List" >
+    goodsIcon
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goods
+    where goodsId = #{goodsid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from goods
+    where goodsId = #{goodsid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.aygxy.fmaket.goods.entity.Goods" >
+    insert into goods (goodsId, userId, goodsTypeId, 
+      goodsTitle, goodsTime, goodsText, 
+      goodsMoney, goodSoldmoney, goodSquality, 
+      goodsIconNumber, userAddress, userPhone, 
+      coonectTime, goodsLikeNum, goodsRepalynum, 
+      goodsIcon)
+    values (#{goodsid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{goodstypeid,jdbcType=INTEGER}, 
+      #{goodstitle,jdbcType=VARCHAR}, #{goodstime,jdbcType=TIMESTAMP}, #{goodstext,jdbcType=VARCHAR}, 
+      #{goodsmoney,jdbcType=VARCHAR}, #{goodsoldmoney,jdbcType=VARCHAR}, #{goodsquality,jdbcType=VARCHAR}, 
+      #{goodsiconnumber,jdbcType=INTEGER}, #{useraddress,jdbcType=VARCHAR}, #{userphone,jdbcType=VARCHAR}, 
+      #{coonecttime,jdbcType=VARCHAR}, #{goodslikenum,jdbcType=INTEGER}, #{goodsrepalynum,jdbcType=INTEGER}, 
+      #{goodsicon,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aygxy.fmaket.goods.entity.Goods" >
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        goodsId,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="goodstypeid != null" >
+        goodsTypeId,
+      </if>
+      <if test="goodstitle != null" >
+        goodsTitle,
+      </if>
+      <if test="goodstime != null" >
+        goodsTime,
+      </if>
+      <if test="goodstext != null" >
+        goodsText,
+      </if>
+      <if test="goodsmoney != null" >
+        goodsMoney,
+      </if>
+      <if test="goodsoldmoney != null" >
+        goodSoldmoney,
+      </if>
+      <if test="goodsquality != null" >
+        goodSquality,
+      </if>
+      <if test="goodsiconnumber != null" >
+        goodsIconNumber,
+      </if>
+      <if test="useraddress != null" >
+        userAddress,
+      </if>
+      <if test="userphone != null" >
+        userPhone,
+      </if>
+      <if test="coonecttime != null" >
+        coonectTime,
+      </if>
+      <if test="goodslikenum != null" >
+        goodsLikeNum,
+      </if>
+      <if test="goodsrepalynum != null" >
+        goodsRepalynum,
+      </if>
+      <if test="goodsicon != null" >
+        goodsIcon,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodstypeid != null" >
+        #{goodstypeid,jdbcType=INTEGER},
+      </if>
+      <if test="goodstitle != null" >
+        #{goodstitle,jdbcType=VARCHAR},
+      </if>
+      <if test="goodstime != null" >
+        #{goodstime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodstext != null" >
+        #{goodstext,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsmoney != null" >
+        #{goodsmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsoldmoney != null" >
+        #{goodsoldmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsquality != null" >
+        #{goodsquality,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsiconnumber != null" >
+        #{goodsiconnumber,jdbcType=INTEGER},
+      </if>
+      <if test="useraddress != null" >
+        #{useraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userphone != null" >
+        #{userphone,jdbcType=VARCHAR},
+      </if>
+      <if test="coonecttime != null" >
+        #{coonecttime,jdbcType=VARCHAR},
+      </if>
+      <if test="goodslikenum != null" >
+        #{goodslikenum,jdbcType=INTEGER},
+      </if>
+      <if test="goodsrepalynum != null" >
+        #{goodsrepalynum,jdbcType=INTEGER},
+      </if>
+      <if test="goodsicon != null" >
+        #{goodsicon,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aygxy.fmaket.goods.entity.Goods" >
+    update goods
+    <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodstypeid != null" >
+        goodsTypeId = #{goodstypeid,jdbcType=INTEGER},
+      </if>
+      <if test="goodstitle != null" >
+        goodsTitle = #{goodstitle,jdbcType=VARCHAR},
+      </if>
+      <if test="goodstime != null" >
+        goodsTime = #{goodstime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodstext != null" >
+        goodsText = #{goodstext,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsmoney != null" >
+        goodsMoney = #{goodsmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsoldmoney != null" >
+        goodSoldmoney = #{goodsoldmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsquality != null" >
+        goodSquality = #{goodsquality,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsiconnumber != null" >
+        goodsIconNumber = #{goodsiconnumber,jdbcType=INTEGER},
+      </if>
+      <if test="useraddress != null" >
+        userAddress = #{useraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userphone != null" >
+        userPhone = #{userphone,jdbcType=VARCHAR},
+      </if>
+      <if test="coonecttime != null" >
+        coonectTime = #{coonecttime,jdbcType=VARCHAR},
+      </if>
+      <if test="goodslikenum != null" >
+        goodsLikeNum = #{goodslikenum,jdbcType=INTEGER},
+      </if>
+      <if test="goodsrepalynum != null" >
+        goodsRepalynum = #{goodsrepalynum,jdbcType=INTEGER},
+      </if>
+      <if test="goodsicon != null" >
+        goodsIcon = #{goodsicon,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where goodsId = #{goodsid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.aygxy.fmaket.goods.entity.Goods" >
+    update goods
+    set userId = #{userid,jdbcType=VARCHAR},
+      goodsTypeId = #{goodstypeid,jdbcType=INTEGER},
+      goodsTitle = #{goodstitle,jdbcType=VARCHAR},
+      goodsTime = #{goodstime,jdbcType=TIMESTAMP},
+      goodsText = #{goodstext,jdbcType=VARCHAR},
+      goodsMoney = #{goodsmoney,jdbcType=VARCHAR},
+      goodSoldmoney = #{goodsoldmoney,jdbcType=VARCHAR},
+      goodSquality = #{goodsquality,jdbcType=VARCHAR},
+      goodsIconNumber = #{goodsiconnumber,jdbcType=INTEGER},
+      userAddress = #{useraddress,jdbcType=VARCHAR},
+      userPhone = #{userphone,jdbcType=VARCHAR},
+      coonectTime = #{coonecttime,jdbcType=VARCHAR},
+      goodsLikeNum = #{goodslikenum,jdbcType=INTEGER},
+      goodsRepalynum = #{goodsrepalynum,jdbcType=INTEGER},
+      goodsIcon = #{goodsicon,jdbcType=LONGVARCHAR}
+    where goodsId = #{goodsid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aygxy.fmaket.goods.entity.Goods" >
+    update goods
+    set userId = #{userid,jdbcType=VARCHAR},
+      goodsTypeId = #{goodstypeid,jdbcType=INTEGER},
+      goodsTitle = #{goodstitle,jdbcType=VARCHAR},
+      goodsTime = #{goodstime,jdbcType=TIMESTAMP},
+      goodsText = #{goodstext,jdbcType=VARCHAR},
+      goodsMoney = #{goodsmoney,jdbcType=VARCHAR},
+      goodSoldmoney = #{goodsoldmoney,jdbcType=VARCHAR},
+      goodSquality = #{goodsquality,jdbcType=VARCHAR},
+      goodsIconNumber = #{goodsiconnumber,jdbcType=INTEGER},
+      userAddress = #{useraddress,jdbcType=VARCHAR},
+      userPhone = #{userphone,jdbcType=VARCHAR},
+      coonectTime = #{coonecttime,jdbcType=VARCHAR},
+      goodsLikeNum = #{goodslikenum,jdbcType=INTEGER},
+      goodsRepalynum = #{goodsrepalynum,jdbcType=INTEGER}
+    where goodsId = #{goodsid,jdbcType=VARCHAR}
+  </update>
+</mapper>

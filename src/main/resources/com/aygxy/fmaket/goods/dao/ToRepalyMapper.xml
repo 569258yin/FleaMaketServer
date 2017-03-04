@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aygxy.fmaket.goods.dao.ToRepalyMapper" >
+  <resultMap id="BaseResultMap" type="com.aygxy.fmaket.goods.entity.ToRepaly" >
+    <id column="torepalyId" property="torepalyid" jdbcType="VARCHAR" />
+    <result column="goodsReplayId" property="goodsreplayid" jdbcType="VARCHAR" />
+    <result column="userId" property="userid" jdbcType="VARCHAR" />
+    <result column="torepalyContext" property="torepalycontext" jdbcType="VARCHAR" />
+    <result column="torepalyTime" property="torepalytime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    torepalyId, goodsReplayId, userId, torepalyContext, torepalyTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from torepaly
+    where torepalyId = #{torepalyid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from torepaly
+    where torepalyId = #{torepalyid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.aygxy.fmaket.goods.entity.ToRepaly" >
+    insert into torepaly (torepalyId, goodsReplayId, userId, 
+      torepalyContext, torepalyTime)
+    values (#{torepalyid,jdbcType=VARCHAR}, #{goodsreplayid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{torepalycontext,jdbcType=VARCHAR}, #{torepalytime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aygxy.fmaket.goods.entity.ToRepaly" >
+    insert into torepaly
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="torepalyid != null" >
+        torepalyId,
+      </if>
+      <if test="goodsreplayid != null" >
+        goodsReplayId,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="torepalycontext != null" >
+        torepalyContext,
+      </if>
+      <if test="torepalytime != null" >
+        torepalyTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="torepalyid != null" >
+        #{torepalyid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsreplayid != null" >
+        #{goodsreplayid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="torepalycontext != null" >
+        #{torepalycontext,jdbcType=VARCHAR},
+      </if>
+      <if test="torepalytime != null" >
+        #{torepalytime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aygxy.fmaket.goods.entity.ToRepaly" >
+    update torepaly
+    <set >
+      <if test="goodsreplayid != null" >
+        goodsReplayId = #{goodsreplayid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="torepalycontext != null" >
+        torepalyContext = #{torepalycontext,jdbcType=VARCHAR},
+      </if>
+      <if test="torepalytime != null" >
+        torepalyTime = #{torepalytime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where torepalyId = #{torepalyid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aygxy.fmaket.goods.entity.ToRepaly" >
+    update torepaly
+    set goodsReplayId = #{goodsreplayid,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=VARCHAR},
+      torepalyContext = #{torepalycontext,jdbcType=VARCHAR},
+      torepalyTime = #{torepalytime,jdbcType=TIMESTAMP}
+    where torepalyId = #{torepalyid,jdbcType=VARCHAR}
+  </update>
+</mapper>

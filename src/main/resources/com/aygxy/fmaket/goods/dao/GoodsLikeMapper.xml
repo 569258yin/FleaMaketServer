@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aygxy.fmaket.goods.dao.GoodsLikeMapper" >
+  <resultMap id="BaseResultMap" type="com.aygxy.fmaket.goods.entity.GoodsLike" >
+    <id column="goodsLikeId" property="goodslikeid" jdbcType="VARCHAR" />
+    <result column="goodsId" property="goodsid" jdbcType="VARCHAR" />
+    <result column="userId" property="userid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    goodsLikeId, goodsId, userId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from goodslike
+    where goodsLikeId = #{goodslikeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from goodslike
+    where goodsLikeId = #{goodslikeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.aygxy.fmaket.goods.entity.GoodsLike" >
+    insert into goodslike (goodsLikeId, goodsId, userId
+      )
+    values (#{goodslikeid,jdbcType=VARCHAR}, #{goodsid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aygxy.fmaket.goods.entity.GoodsLike" >
+    insert into goodslike
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodslikeid != null" >
+        goodsLikeId,
+      </if>
+      <if test="goodsid != null" >
+        goodsId,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodslikeid != null" >
+        #{goodslikeid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aygxy.fmaket.goods.entity.GoodsLike" >
+    update goodslike
+    <set >
+      <if test="goodsid != null" >
+        goodsId = #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where goodsLikeId = #{goodslikeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aygxy.fmaket.goods.entity.GoodsLike" >
+    update goodslike
+    set goodsId = #{goodsid,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=VARCHAR}
+    where goodsLikeId = #{goodslikeid,jdbcType=VARCHAR}
+  </update>
+</mapper>

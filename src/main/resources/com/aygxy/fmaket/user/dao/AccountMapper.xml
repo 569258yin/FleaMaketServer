@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aygxy.fmaket.user.dao.AccountMapper" >
+  <resultMap id="BaseResultMap" type="com.aygxy.fmaket.user.entity.Account" >
+    <id column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="useraccount" property="useraccount" jdbcType="VARCHAR" />
+    <result column="userpassword" property="userpassword" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    userid, useraccount, userpassword
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from account
+    where userid = #{userid,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectAccount" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from account
+    where useraccount = #{account,jdbcType=VARCHAR} and userpassword = #{password,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from account
+    where userid = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.aygxy.fmaket.user.entity.Account" >
+    insert into account (userid, useraccount, userpassword
+      )
+    values (#{userid,jdbcType=VARCHAR}, #{useraccount,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aygxy.fmaket.user.entity.Account" >
+    insert into account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="useraccount != null" >
+        useraccount,
+      </if>
+      <if test="userpassword != null" >
+        userpassword,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="useraccount != null" >
+        #{useraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null" >
+        #{userpassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aygxy.fmaket.user.entity.Account" >
+    update account
+    <set >
+      <if test="useraccount != null" >
+        useraccount = #{useraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null" >
+        userpassword = #{userpassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aygxy.fmaket.user.entity.Account" >
+    update account
+    set useraccount = #{useraccount,jdbcType=VARCHAR},
+      userpassword = #{userpassword,jdbcType=VARCHAR}
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+</mapper>

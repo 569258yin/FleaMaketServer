@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aygxy.fmaket.foundcase.dao.FoundCaseMapper" >
+  <resultMap id="BaseResultMap" type="com.aygxy.fmaket.foundcase.entity.FoundCase" >
+    <id column="fdcId" property="fdcid" jdbcType="VARCHAR" />
+    <result column="userId" property="userid" jdbcType="VARCHAR" />
+    <result column="fdcTitle" property="fdctitle" jdbcType="VARCHAR" />
+    <result column="fdcTime" property="fdctime" jdbcType="TIMESTAMP" />
+    <result column="fdcContext" property="fdccontext" jdbcType="VARCHAR" />
+    <result column="fdcFindTime" property="fdcfindtime" jdbcType="TIMESTAMP" />
+    <result column="fdcFindAddress" property="fdcfindaddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fdcId, userId, fdcTitle, fdcTime, fdcContext, fdcFindTime, fdcFindAddress
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from foundcase
+    where fdcId = #{fdcid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from foundcase
+    where fdcId = #{fdcid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.aygxy.fmaket.foundcase.entity.FoundCase" >
+    insert into foundcase (fdcId, userId, fdcTitle, 
+      fdcTime, fdcContext, fdcFindTime, 
+      fdcFindAddress)
+    values (#{fdcid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{fdctitle,jdbcType=VARCHAR}, 
+      #{fdctime,jdbcType=TIMESTAMP}, #{fdccontext,jdbcType=VARCHAR}, #{fdcfindtime,jdbcType=TIMESTAMP}, 
+      #{fdcfindaddress,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aygxy.fmaket.foundcase.entity.FoundCase" >
+    insert into foundcase
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fdcid != null" >
+        fdcId,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="fdctitle != null" >
+        fdcTitle,
+      </if>
+      <if test="fdctime != null" >
+        fdcTime,
+      </if>
+      <if test="fdccontext != null" >
+        fdcContext,
+      </if>
+      <if test="fdcfindtime != null" >
+        fdcFindTime,
+      </if>
+      <if test="fdcfindaddress != null" >
+        fdcFindAddress,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fdcid != null" >
+        #{fdcid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="fdctitle != null" >
+        #{fdctitle,jdbcType=VARCHAR},
+      </if>
+      <if test="fdctime != null" >
+        #{fdctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fdccontext != null" >
+        #{fdccontext,jdbcType=VARCHAR},
+      </if>
+      <if test="fdcfindtime != null" >
+        #{fdcfindtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fdcfindaddress != null" >
+        #{fdcfindaddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aygxy.fmaket.foundcase.entity.FoundCase" >
+    update foundcase
+    <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="fdctitle != null" >
+        fdcTitle = #{fdctitle,jdbcType=VARCHAR},
+      </if>
+      <if test="fdctime != null" >
+        fdcTime = #{fdctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fdccontext != null" >
+        fdcContext = #{fdccontext,jdbcType=VARCHAR},
+      </if>
+      <if test="fdcfindtime != null" >
+        fdcFindTime = #{fdcfindtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fdcfindaddress != null" >
+        fdcFindAddress = #{fdcfindaddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fdcId = #{fdcid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aygxy.fmaket.foundcase.entity.FoundCase" >
+    update foundcase
+    set userId = #{userid,jdbcType=VARCHAR},
+      fdcTitle = #{fdctitle,jdbcType=VARCHAR},
+      fdcTime = #{fdctime,jdbcType=TIMESTAMP},
+      fdcContext = #{fdccontext,jdbcType=VARCHAR},
+      fdcFindTime = #{fdcfindtime,jdbcType=TIMESTAMP},
+      fdcFindAddress = #{fdcfindaddress,jdbcType=VARCHAR}
+    where fdcId = #{fdcid,jdbcType=VARCHAR}
+  </update>
+</mapper>
