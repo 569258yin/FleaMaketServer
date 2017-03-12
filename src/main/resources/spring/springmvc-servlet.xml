@@ -30,7 +30,7 @@
 		<!-- TOken拦截器  -->
 		<mvc:interceptor>
 		    <mvc:mapping path="/**"/>
-		   <!--  <mvc:exclude-mapping path="/account/*"/> -->
+		    <mvc:exclude-mapping path="/file/*"/>
 			<bean class="com.aygxy.fmaket.intercept.TokenHandlerInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
