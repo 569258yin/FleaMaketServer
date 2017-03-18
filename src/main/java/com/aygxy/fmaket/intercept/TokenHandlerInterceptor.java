@@ -43,15 +43,15 @@ public class TokenHandlerInterceptor extends HandlerInterceptorAdapter {
 			request.setAttribute("body", message.getBody().getElements());
 			//判断是否有token存在，并校验是否过期
 			String token = message.getBody().getToken();
-			if((token == null || "".equals(token)) && !request.getRequestURI().endsWith("account/login.action")){
+			if((token == null || "".equals(token)) && !request.getRequestURI().endsWith("account/loginAccount.action")){
 				boolean bool = Application.Instance().checkToken(token);
 				if(!bool){
-					response.getWriter().write(MessageParams.TOKEN_ERROR);
-							return false;
+					response.getOutputStream().write(MessageParams.TOKEN_ERROR.getBytes("utf-8"));
+					return false;
 				}
 			}
 		}else{
-			response.getWriter().write(MessageParams.SIGN_ERROR);
+			response.getOutputStream().write(MessageParams.SIGN_ERROR.getBytes("utf-8"));
 			return false;
 		}
 		return super.preHandle(request, response, handler);
@@ -74,6 +74,5 @@ public class TokenHandlerInterceptor extends HandlerInterceptorAdapter {
 			logger.debug("afterCompletion return message:"+result);
 			response.getOutputStream().write(result.getBytes("utf-8"));
 		}
-		super.afterCompletion(request, response, handler, ex);
 	}
 }

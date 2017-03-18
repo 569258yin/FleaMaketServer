@@ -10,6 +10,8 @@ public interface TokenService {
 	
 	boolean deleteTokenById(String tokenId);
 	
+	boolean deleteTokenByUserId(String userId);
+	
 	boolean saveToken(Token token);
 	
 	List<Token> selectAllToken();

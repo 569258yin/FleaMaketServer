@@ -16,6 +16,12 @@
     from account_token
     where tokenId = #{tokenId,jdbcType=VARCHAR}
   </select>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from account_token
+    where userId = #{userId,jdbcType=VARCHAR}
+  </select>
   
   <select id="selectAllToken" resultMap="BaseResultMap">
     select 

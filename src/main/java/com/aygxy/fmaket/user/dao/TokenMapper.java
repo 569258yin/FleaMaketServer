@@ -20,6 +20,8 @@ public interface TokenMapper {
     
     Token selectByPrimaryKey(@Param(value = "tokenId")String tokenId);
     
+    Token selectByUserId(@Param(value = "userId")String userId);
+    
     int updateByPrimaryKeySelective(Token record);
 
     int updateByPrimaryKey(Token record);

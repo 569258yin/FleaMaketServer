@@ -7,7 +7,7 @@ import com.aygxy.fmaket.user.dao.AccountMapper;
 import com.aygxy.fmaket.user.entity.Account;
 import com.aygxy.fmaket.user.service.AccountService;
 
-@Service
+@Service("accountService")
 public class AccountServiceImpl implements AccountService {
 
 	@Resource

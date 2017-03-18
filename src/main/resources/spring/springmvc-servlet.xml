@@ -24,7 +24,6 @@
 	<!-- 静态资源 -->
 	<mvc:resources mapping="/jsps/**" location="/jsps/" cache-period="31556926" />
 	
-	
 	<!-- 拦截器 -->
 	<mvc:interceptors>
 		<!-- TOken拦截器  -->

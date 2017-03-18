@@ -6,7 +6,10 @@ public class Goods {
     private String goodsid;
 
     private String userid;
-
+    
+    private String userName;
+	private String userIcon;
+	
     private Integer goodstypeid;
 
     private String goodstitle;
@@ -162,4 +165,21 @@ public class Goods {
     public void setGoodsicon(String goodsicon) {
         this.goodsicon = goodsicon == null ? null : goodsicon.trim();
     }
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserIcon() {
+		return userIcon;
+	}
+
+	public void setUserIcon(String userIcon) {
+		this.userIcon = userIcon;
+	}
+    
 }

@@ -41,8 +41,9 @@ public class FileAction {
 		//创建工厂
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 		//设置缓冲区的大小
-		factory.setSizeThreshold(1024*1024*5);
+		factory.setSizeThreshold(1024*1024*1024*5);
 		String result = "";
+		//本地服务器真实路径
 		String imgPath = request.getSession().getServletContext().getRealPath(File.separator+"extimg");
 		//上传时生成的临时文件保存目录
 		String tempPath = request.getSession().getServletContext().getRealPath(File.separator+"temp");
@@ -74,7 +75,7 @@ public class FileAction {
 				return;
 			}
 			//设置图片最大限制
-			upload.setFileSizeMax(1024*1024);
+			upload.setFileSizeMax(1024*1024*1024);
 			//使用解析器对上传的文件进行解析
 			List<FileItem> list = upload.parseRequest(request);
 			DebugLog.logger.debug("解析出的文件列表为"+list.toString());
@@ -87,14 +88,6 @@ public class FileAction {
 						//解决普通输入项的中文乱码问题
 						String requestValue = fileItem.getString(ENCODING);
 						DebugLog.logger.info("文件上传携带参数==>"+requestName+":"+requestValue);
-						//						System.out.println(requestName+"="+requestCode);
-						//						if (requestName.equals("requestCode")) {
-						//							requestCode = requestValue;
-						//						}else if(requestName.equals("id")){
-						//							id = requestValue;
-						//						}else if(requestName.equals("user_id")){
-						//							user_id = requestValue;
-						//						}
 					}else{	//封装的是上传的文件
 						//得到上传的文件名
 						String fileName = fileItem.getName();
@@ -123,8 +116,9 @@ public class FileAction {
 							return;
 						}
 						//获取item上传的输入流
-						//获取唯一名
+						//获取唯一名，随机生成
 						String saveFileName= FileUtil.makeFileName(fileExtName);
+						//根据文件名记性hash生成文件夹
 						String filePath = FileUtil.makePath(saveFileName, "");
 						String realFilePath = imgPath + filePath;
 						//用于url生成
@@ -134,9 +128,7 @@ public class FileAction {
 						if (!filePathFile.exists()) {
 							filePathFile.mkdirs();
 						}
-						/**
-						 * 创建文件
-						 */
+						//创建文件
 						File file = new File(filePathFile,saveFileName);
 						if (!file.exists()) {
 							file.createNewFile();
@@ -161,11 +153,10 @@ public class FileAction {
 				result = GsonUtil.objectToString(new ImagePath(imageLists));
 				response.getOutputStream().write(result.getBytes(ENCODING));
 			}
-
 		} catch (FileUploadException e) {
 			DebugLog.logger.error("文件上传失败", e);
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			DebugLog.logger.error("不支持的编码格式", e);
 		} catch (IOException e) {
 			DebugLog.logger.error("文件读写失败", e);
 		} catch (Exception e) {

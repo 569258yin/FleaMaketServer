@@ -30,9 +30,7 @@
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
-  <listener>
-    <listener-class>com.aygxy.fmaket.listener.InitWebServerListener</listener-class>
-  </listener>
+  
   
   <!-- 4.编码过滤器，解决中文乱码 -->
   <filter>

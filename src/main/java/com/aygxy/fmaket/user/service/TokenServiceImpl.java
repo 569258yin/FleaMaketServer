@@ -44,6 +44,11 @@ public class TokenServiceImpl implements TokenService{
 	public List<Token> selectAllToken() {
 		return tokenMapper.selectAllToken();
 	}
+
+	@Override
+	public boolean deleteTokenByUserId(String userId) {
+		return false;
+	}
 	
 
 }
