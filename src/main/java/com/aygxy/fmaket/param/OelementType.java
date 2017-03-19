@@ -7,5 +7,5 @@ public class OelementType {
 	/** 数据安全性校验失败  */
 	public static final int FAILD = -1;
 	/** TOKEN无效 */
-	public static final int TOKEN_FAILD = 0;
+	public static final int TOKEN_FAILD = 2;
 }

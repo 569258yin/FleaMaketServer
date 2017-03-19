@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aygxy.fmaket.Application;
+import com.aygxy.fmaket.debug.DebugLog;
+import com.aygxy.fmaket.goods.service.GoodsTypeService;
+import com.aygxy.fmaket.net.jsonbean.AppInitData;
 import com.aygxy.fmaket.net.jsonbean.UserAccount;
 import com.aygxy.fmaket.net.procatal.Body;
 import com.aygxy.fmaket.net.procatal.BodyProvider;
@@ -28,6 +31,8 @@ public class AccountAction {
 	
 	@Resource
 	AccountService accountService;
+	@Resource
+	GoodsTypeService goodsTypeService;
 	
 	@RequestMapping("/loginAccount.action")
 	@ResponseBody
@@ -55,7 +60,16 @@ public class AccountAction {
 	
 	@RequestMapping("/checkToken.action")
 	public void checkToken(HttpServletRequest request,HttpServletResponse response) throws Exception{
-		request.getSession().setAttribute(GlobalParams.RESULT, BodyProvider.getSuccessBody("token校验成功"));
+		Body responseBody = BodyProvider.getSuccessBody("token校验成功");
+		try {
+			AppInitData appInitData = new AppInitData();
+			appInitData.setGoodsTypes(goodsTypeService.getAllGoodsType());
+			String resultJson = GsonUtil.objectToString(appInitData);
+			responseBody.setElements(resultJson);
+		} catch (Exception e) {
+			DebugLog.logger.error("检查token获取App初始化数据时失败", e);
+		}
+		request.getSession().setAttribute(GlobalParams.RESULT,responseBody);
 	}
 	
 }
