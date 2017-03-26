@@ -17,6 +17,11 @@
     <result column="coonectTime" property="coonecttime" jdbcType="VARCHAR" />
     <result column="goodsLikeNum" property="goodslikenum" jdbcType="INTEGER" />
     <result column="goodsRepalynum" property="goodsrepalynum" jdbcType="INTEGER" />
+    <association property="userInfo" javaType="com.aygxy.fmaket.user.entity.UserInfo">
+        <id column="userId" property="userid"/>
+        <result column="nickName" property="nickname" />
+        <result column="userIcon" property="usericon"/>
+    </association>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.aygxy.fmaket.goods.entity.Goods" extends="BaseResultMap" >
     <result column="goodsIcon" property="goodsicon" jdbcType="LONGVARCHAR" />
@@ -24,22 +29,29 @@
   <sql id="Base_Column_List" >
     goodsId, userId, goodsTypeId, goodsTitle, goodsTime, goodsText, goodsMoney, goodSoldmoney, 
     goodSquality, goodsIconNumber, userAddress, userPhone, coonectTime, goodsLikeNum, 
-    goodsRepalynum
+    goodsRepalynum, userId, nikeName, userIcon
   </sql>
   <sql id="Blob_Column_List" >
     goodsIcon
   </sql>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from goods
-    where goodsId = #{goodsid,jdbcType=VARCHAR}
+    SELECT *
+    FROM goods g, user_info u
+    WHERE g.goodsId = #{goodsid,jdbcType=VARCHAR} and g.userId = u.userId
+  </select>
+  <select id="selectGoodsByPage" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" resultType="List">
+    SELECT *
+    FROM goods g, user_info u
+    WHERE g.userId = u.userId
+  </select>
+  <select id="selectGoodsByPageOrderTime" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" resultType="List">
+    SELECT *
+    FROM goods g, user_info u
+    WHERE g.userId = u.userId ORDER BY goodsTime DESC
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from goods
-    where goodsId = #{goodsid,jdbcType=VARCHAR}
+    DELETE FROM goods
+    WHERE goodsId = #{goodsid,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.aygxy.fmaket.goods.entity.Goods" >
     insert into goods (goodsId, userId, goodsTypeId, 

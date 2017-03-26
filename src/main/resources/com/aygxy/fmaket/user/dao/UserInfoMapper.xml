@@ -2,40 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.aygxy.fmaket.user.dao.UserInfoMapper" >
   <resultMap id="BaseResultMap" type="com.aygxy.fmaket.user.entity.UserInfo" >
-    <id column="userid" property="userid" jdbcType="VARCHAR" />
-    <result column="usersex" property="usersex" jdbcType="INTEGER" />
-    <result column="userage" property="userage" jdbcType="INTEGER" />
-    <result column="useraddress" property="useraddress" jdbcType="VARCHAR" />
-    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <id column="userId" property="userid" jdbcType="VARCHAR" />
+    <result column="userSex" property="usersex" jdbcType="INTEGER" />
+    <result column="userAge" property="userage" jdbcType="INTEGER" />
+    <result column="userAddress" property="useraddress" jdbcType="VARCHAR" />
+    <result column="nickName" property="nickname" jdbcType="VARCHAR" />
     <result column="signature" property="signature" jdbcType="VARCHAR" />
-    <result column="qqnumber" property="qqnumber" jdbcType="VARCHAR" />
-    <result column="wxnumber" property="wxnumber" jdbcType="VARCHAR" />
+    <result column="qqNumber" property="qqnumber" jdbcType="VARCHAR" />
+    <result column="wxNumber" property="wxnumber" jdbcType="VARCHAR" />
     <result column="colleage" property="colleage" jdbcType="VARCHAR" />
     <result column="school" property="school" jdbcType="VARCHAR" />
-    <result column="usericon" property="usericon" jdbcType="VARCHAR" />
-    <result column="userphone" property="userphone" jdbcType="VARCHAR" />
-    <result column="validatenumber" property="validatenumber" jdbcType="VARCHAR" />
+    <result column="userIcon" property="usericon" jdbcType="VARCHAR" />
+    <result column="userPhone" property="userphone" jdbcType="VARCHAR" />
+    <result column="validateNumber" property="validatenumber" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    userid, usersex, userage, useraddress, nickname, signature, qqnumber, wxnumber, colleage, 
-    school, usericon, userphone, validatenumber
+    userId, userSex, userAge, userAddress, nickName, signature, qqNumber, wxNumber, colleage, 
+    school, userIcon, userPhone, validateNumber
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from user_info
-    where userid = #{userid,jdbcType=VARCHAR}
+    where userId = #{userid,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from user_info
-    where userid = #{userid,jdbcType=VARCHAR}
+    where userId = #{userid,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.aygxy.fmaket.user.entity.UserInfo" >
-    insert into user_info (userid, usersex, userage, 
-      useraddress, nickname, signature, 
-      qqnumber, wxnumber, colleage, 
-      school, usericon, userphone, 
-      validatenumber)
+    insert into user_info (userId, userSex, userAge, 
+      userAddress, nickName, signature, 
+      qqNumber, wxNumber, colleage, 
+      school, userIcon, userPhone, 
+      validateNumber)
     values (#{userid,jdbcType=VARCHAR}, #{usersex,jdbcType=INTEGER}, #{userage,jdbcType=INTEGER}, 
       #{useraddress,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, 
       #{qqnumber,jdbcType=VARCHAR}, #{wxnumber,jdbcType=VARCHAR}, #{colleage,jdbcType=VARCHAR}, 
@@ -46,28 +46,28 @@
     insert into user_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userid != null" >
-        userid,
+        userId,
       </if>
       <if test="usersex != null" >
-        usersex,
+        userSex,
       </if>
       <if test="userage != null" >
-        userage,
+        userAge,
       </if>
       <if test="useraddress != null" >
-        useraddress,
+        userAddress,
       </if>
       <if test="nickname != null" >
-        nickname,
+        nickName,
       </if>
       <if test="signature != null" >
         signature,
       </if>
       <if test="qqnumber != null" >
-        qqnumber,
+        qqNumber,
       </if>
       <if test="wxnumber != null" >
-        wxnumber,
+        wxNumber,
       </if>
       <if test="colleage != null" >
         colleage,
@@ -76,13 +76,13 @@
         school,
       </if>
       <if test="usericon != null" >
-        usericon,
+        userIcon,
       </if>
       <if test="userphone != null" >
-        userphone,
+        userPhone,
       </if>
       <if test="validatenumber != null" >
-        validatenumber,
+        validateNumber,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -131,25 +131,25 @@
     update user_info
     <set >
       <if test="usersex != null" >
-        usersex = #{usersex,jdbcType=INTEGER},
+        userSex = #{usersex,jdbcType=INTEGER},
       </if>
       <if test="userage != null" >
-        userage = #{userage,jdbcType=INTEGER},
+        userAge = #{userage,jdbcType=INTEGER},
       </if>
       <if test="useraddress != null" >
-        useraddress = #{useraddress,jdbcType=VARCHAR},
+        userAddress = #{useraddress,jdbcType=VARCHAR},
       </if>
       <if test="nickname != null" >
-        nickname = #{nickname,jdbcType=VARCHAR},
+        nickName = #{nickname,jdbcType=VARCHAR},
       </if>
       <if test="signature != null" >
         signature = #{signature,jdbcType=VARCHAR},
       </if>
       <if test="qqnumber != null" >
-        qqnumber = #{qqnumber,jdbcType=VARCHAR},
+        qqNumber = #{qqnumber,jdbcType=VARCHAR},
       </if>
       <if test="wxnumber != null" >
-        wxnumber = #{wxnumber,jdbcType=VARCHAR},
+        wxNumber = #{wxnumber,jdbcType=VARCHAR},
       </if>
       <if test="colleage != null" >
         colleage = #{colleage,jdbcType=VARCHAR},
@@ -158,31 +158,31 @@
         school = #{school,jdbcType=VARCHAR},
       </if>
       <if test="usericon != null" >
-        usericon = #{usericon,jdbcType=VARCHAR},
+        userIcon = #{usericon,jdbcType=VARCHAR},
       </if>
       <if test="userphone != null" >
-        userphone = #{userphone,jdbcType=VARCHAR},
+        userPhone = #{userphone,jdbcType=VARCHAR},
       </if>
       <if test="validatenumber != null" >
-        validatenumber = #{validatenumber,jdbcType=VARCHAR},
+        validateNumber = #{validatenumber,jdbcType=VARCHAR},
       </if>
     </set>
-    where userid = #{userid,jdbcType=VARCHAR}
+    where userId = #{userid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.aygxy.fmaket.user.entity.UserInfo" >
     update user_info
-    set usersex = #{usersex,jdbcType=INTEGER},
-      userage = #{userage,jdbcType=INTEGER},
-      useraddress = #{useraddress,jdbcType=VARCHAR},
-      nickname = #{nickname,jdbcType=VARCHAR},
+    set userSex = #{usersex,jdbcType=INTEGER},
+      userAge = #{userage,jdbcType=INTEGER},
+      userAddress = #{useraddress,jdbcType=VARCHAR},
+      nickName = #{nickname,jdbcType=VARCHAR},
       signature = #{signature,jdbcType=VARCHAR},
-      qqnumber = #{qqnumber,jdbcType=VARCHAR},
-      wxnumber = #{wxnumber,jdbcType=VARCHAR},
+      qqNumber = #{qqnumber,jdbcType=VARCHAR},
+      wxNumber = #{wxnumber,jdbcType=VARCHAR},
       colleage = #{colleage,jdbcType=VARCHAR},
       school = #{school,jdbcType=VARCHAR},
-      usericon = #{usericon,jdbcType=VARCHAR},
-      userphone = #{userphone,jdbcType=VARCHAR},
-      validatenumber = #{validatenumber,jdbcType=VARCHAR}
-    where userid = #{userid,jdbcType=VARCHAR}
+      userIcon = #{usericon,jdbcType=VARCHAR},
+      userPhone = #{userphone,jdbcType=VARCHAR},
+      validateNumber = #{validatenumber,jdbcType=VARCHAR}
+    where userId = #{userid,jdbcType=VARCHAR}
   </update>
 </mapper>

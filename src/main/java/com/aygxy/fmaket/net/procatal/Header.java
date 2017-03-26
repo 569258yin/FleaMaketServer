@@ -12,6 +12,8 @@ import java.util.Random;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import com.aygxy.fmaket.util.Utility;
+
 /**
  * 消息头文件
  * @author yh
@@ -42,7 +44,7 @@ public class Header implements Serializable{
 		DecimalFormat decimalFormat = new DecimalFormat("000000");
 		this.messengereid=currentDate+decimalFormat.format(num);
 		//获取IP
-		this.ipaddress = getIP();
+		this.ipaddress = Utility.getIP();
 		//MD5
 		String orgInfo = currentDate + ipaddress + body;
 		String md5Hex = DigestUtils.md5Hex(orgInfo);
@@ -50,34 +52,7 @@ public class Header implements Serializable{
 		
 	}
 	
-	/**
-	 * 获取IP
-	 * @return
-	 */
-	private String getIP() {  
-		String IP = null;  
-		StringBuilder IPStringBuilder = new StringBuilder();  
-		try {  
-			Enumeration<NetworkInterface> networkInterfaceEnumeration = NetworkInterface.getNetworkInterfaces();  
-			while (networkInterfaceEnumeration.hasMoreElements()) {  
-				NetworkInterface networkInterface = networkInterfaceEnumeration.nextElement();  
-				Enumeration<InetAddress> inetAddressEnumeration = networkInterface.getInetAddresses();  
-				while (inetAddressEnumeration.hasMoreElements()) {  
-					InetAddress inetAddress = inetAddressEnumeration.nextElement();  
-					if (!inetAddress.isLoopbackAddress()&&   
-							!inetAddress.isLinkLocalAddress()&&   
-							inetAddress.isSiteLocalAddress()) {  
-						IPStringBuilder.append(inetAddress.getHostAddress().toString()+"\n");  
-					}  
-				}  
-			}  
-		} catch (SocketException ex) {  
-			System.out.println("获取IP出错");
-		}  
-
-		IP = IPStringBuilder.toString();  
-		return IP;  
-	}
+	
 
 	public String getMessengereid() {
 		return messengereid;

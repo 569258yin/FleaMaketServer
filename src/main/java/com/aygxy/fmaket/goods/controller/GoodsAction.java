@@ -17,6 +17,7 @@ import com.aygxy.fmaket.goods.entity.Goods;
 import com.aygxy.fmaket.goods.entity.GoodsType;
 import com.aygxy.fmaket.goods.service.GoodsService;
 import com.aygxy.fmaket.goods.service.GoodsTypeService;
+import com.aygxy.fmaket.net.jsonbean.PageJsonData;
 import com.aygxy.fmaket.net.procatal.Body;
 import com.aygxy.fmaket.net.procatal.BodyProvider;
 import com.aygxy.fmaket.param.GlobalParams;
@@ -58,6 +59,7 @@ public class GoodsAction {
 		request.getSession().setAttribute(GlobalParams.RESULT,resultbody);
 	}
 	
+	
 	@RequestMapping("/getGoodsType.action")
 	@ResponseBody
 	public void getGoodsType(HttpServletRequest request){
@@ -69,6 +71,34 @@ public class GoodsAction {
 			resultbody.setElements(json);
 		} catch (Exception e) {
 			DebugLog.logger.error("发布宝贝失败", e);
+		}
+		request.getSession().setAttribute(GlobalParams.RESULT,resultbody);
+	}
+	
+	@RequestMapping("/getGoodsByPage.action")
+	@ResponseBody
+	public void getGoodsByPage(HttpServletRequest request){
+		Body resultbody =  BodyProvider.getFaildBody("获取商品失败");
+		try {
+			String body = (String) request.getAttribute("body");
+			PageJsonData pageJsonData = GsonUtil.stringToObjectByBean(body, PageJsonData.class);
+			if(pageJsonData != null){
+				List<Goods> lists;
+				int type = pageJsonData.getType();
+				if(type == GlobalParams.SELECT_GOODS_BY_TIME){
+					lists = goodsService.selectGoodsByTime(pageJsonData.getPageNum(), pageJsonData.getPageSize());
+				}else if(type == GlobalParams.SELECT_GOODS_BY_ADDRESS){
+					lists = goodsService.selectGoodsByPage(pageJsonData.getPageNum(), pageJsonData.getPageSize());
+				}else{
+					lists = goodsService.selectGoodsByPage(pageJsonData.getPageNum(), pageJsonData.getPageSize());
+				}
+				
+				String json = GsonUtil.objectToString(lists);
+				resultbody = BodyProvider.getSuccessBody();
+				resultbody.setElements(json);
+			}
+		} catch (Exception e) {
+			DebugLog.logger.error("获取商品失败", e);
 		}
 		request.getSession().setAttribute(GlobalParams.RESULT,resultbody);
 	}

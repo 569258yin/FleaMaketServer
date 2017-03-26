@@ -3,10 +3,10 @@
 	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <settings>
-        <!-- 打印查询语句 -->
-        <setting name="logImpl" value="STDOUT_LOGGING" />
-    </settings>
+	<settings>
+		<!-- 打印查询语句 -->
+		<setting name="logImpl" value="STDOUT_LOGGING" />
+	</settings>
 	<!-- 定义别名 -->
 	<typeAliases>
 		<package name="com.aygxy.fmaket.*.entity" />
@@ -15,7 +15,7 @@
 	<mappers>
 		<!-- 加载 原始dao使用映射文件 -->
 		<!-- <mapper resource="sqlmap/User.xml" /> -->
-		
+
 		<!--批量mapper扫描 遵循规则：将mapper.xml和mapper.java文件放在一个目录 且文件名相同 -->
 		<!-- <package name="cn.itcast.ssm.dao.mapper" /> -->
 	</mappers>

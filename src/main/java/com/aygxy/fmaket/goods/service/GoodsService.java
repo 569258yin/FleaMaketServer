@@ -1,5 +1,7 @@
 package com.aygxy.fmaket.goods.service;
 
+import java.util.List;
+
 import com.aygxy.fmaket.goods.entity.Goods;
 
 public interface GoodsService {
@@ -11,6 +13,29 @@ public interface GoodsService {
 	 */
 	public boolean saveGoods(Goods goods);
 	
+	/**
+	 * 分页加载商品
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	public List<Goods> selectGoodsByPage(int pageNum, int pageSize);
 	
+	/**
+	 * 通过时间排序分页查询
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	public List<Goods> selectGoodsByTime(int pageNum,int pageSize);
 	
+	/**
+	 * 通过经纬度获取附近发布的商品
+	 * @param pageNum
+	 * @param pageSize
+	 * @param latitude 纬度
+	 * @param longitude 经度
+	 * @return
+	 */
+	public List<Goods> selectGoodsByAddress(int pageNum,int pageSize,double latitude,double longitude);
 }

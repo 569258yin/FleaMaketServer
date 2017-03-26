@@ -2,13 +2,12 @@ package com.aygxy.fmaket.goods.entity;
 
 import java.util.Date;
 
+import com.aygxy.fmaket.user.entity.UserInfo;
+
 public class Goods {
     private String goodsid;
 
     private String userid;
-    
-    private String userName;
-	private String userIcon;
 	
     private Integer goodstypeid;
 
@@ -37,6 +36,8 @@ public class Goods {
     private Integer goodsrepalynum;
 
     private String goodsicon;
+    
+    private UserInfo userInfo;
 
     public String getGoodsid() {
         return goodsid;
@@ -166,20 +167,13 @@ public class Goods {
         this.goodsicon = goodsicon == null ? null : goodsicon.trim();
     }
 
-	public String getUserName() {
-		return userName;
+	public UserInfo getUserInfo() {
+		return userInfo;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 
-	public String getUserIcon() {
-		return userIcon;
-	}
-
-	public void setUserIcon(String userIcon) {
-		this.userIcon = userIcon;
-	}
     
 }

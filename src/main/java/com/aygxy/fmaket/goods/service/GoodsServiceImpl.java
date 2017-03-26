@@ -1,5 +1,7 @@
 package com.aygxy.fmaket.goods.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -22,5 +24,24 @@ public class GoodsServiceImpl implements GoodsService {
 			return false;
 		}
 	}
+
+	@Override
+	public List<Goods> selectGoodsByPage(int pageNum, int pageSize) {
+		List<Goods> list = goodsMapper.selectGoodsByPage(pageNum, pageSize);
+		return list;
+	}
+
+	@Override
+	public List<Goods> selectGoodsByTime(int pageNum, int pageSize) {
+		List<Goods> list = goodsMapper.selectGoodsByPageOrderTime(pageNum, pageSize);
+		return list;
+	}
+
+	@Override
+	public List<Goods> selectGoodsByAddress(int pageNum, int pageSize, double latitude, double longitude) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 
 }

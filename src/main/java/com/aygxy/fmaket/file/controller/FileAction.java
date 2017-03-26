@@ -25,6 +25,7 @@ import com.aygxy.fmaket.debug.DebugLog;
 import com.aygxy.fmaket.param.GlobalParams;
 import com.aygxy.fmaket.util.FileUtil;
 import com.aygxy.fmaket.util.GsonUtil;
+import com.aygxy.fmaket.util.Utility;
 
 @Controller
 @RequestMapping("file")
@@ -144,7 +145,7 @@ public class FileAction {
 						}
 						//删除处理文件的临时文件
 						fileItem.delete();
-						otherFilePath = GlobalParams.SERVER_URL + otherFilePath + File.separator + saveFileName;
+						otherFilePath = "http://" + Utility.getIP() + GlobalParams.SERVER_URL + otherFilePath + File.separator + saveFileName;
 						otherFilePath =  otherFilePath.replace('\\', '/');
 						DebugLog.logger.debug("生成的图片url为:"+otherFilePath);
 						imageLists.add(otherFilePath);

@@ -8,11 +8,11 @@
 			http://www.springframework.org/schema/mvc 
 			http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd 
 			http://www.springframework.org/schema/context 
-			http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd 
 			http://www.springframework.org/schema/aop 
 			http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
 			http://www.springframework.org/schema/tx 
-			http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
+			http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">
 	<!-- 加载数据库配置文件 -->
 	<context:property-placeholder location="classpath:jdbc.properties" />
 	<!-- 组件扫描（既扫描@Service @Repository注解） -->
@@ -37,6 +37,23 @@
 		<property name="dataSource" ref="dataSource" />
 		<!-- 配置SqlMapConfig.xml文件 -->
 		<property name="configLocation" value="classpath:mybatis/sqlMapConfig.xml"></property>
+		<!-- 注意其他配置 -->
+		<property name="plugins">
+	        <array>
+	            <bean class="com.github.pagehelper.PageInterceptor">
+	                <!-- 这里的几个配置主要演示如何使用，如果不理解，一定要去掉下面的配置 -->
+	                <property name="properties">
+	                    <value>
+	                        helperDialect=mysql
+	                        reasonable=false
+	                        supportMethodsArguments=true
+	                        params=pageNum=pageNumKey;pageSize=pageSizeKey;
+	                        autoRuntimeDialect=true
+	                    </value>
+	                </property>
+	            </bean>
+	        </array>
+    	</property>
 	</bean>
 
 	<!-- 事务配置 -->

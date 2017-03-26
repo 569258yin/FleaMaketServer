@@ -9,7 +9,12 @@ public class GlobalParams {
 	/**  */
 	public final static String RESULT = "result";
 	/** 服务器地址或域名 */
-	public final static String SERVER_URL = "http://192.168.5.11:8080";
+	public final static String SERVER_URL = ":8080";
 	/** 允许的图片上传后缀 */
 	public final static String[] IMAGE_ALLOW_END = new String[]{"jpg","png","jpeg"};
+	
+	/** 按时间排序 */
+	public final static int SELECT_GOODS_BY_TIME = 1;
+	/** 按距离排序　*/
+	public final static int SELECT_GOODS_BY_ADDRESS = 2;
 }
