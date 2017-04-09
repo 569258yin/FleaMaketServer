@@ -3,27 +3,38 @@
 <mapper namespace="com.aygxy.fmaket.goods.dao.GoodsRepalyMapper" >
   <resultMap id="BaseResultMap" type="com.aygxy.fmaket.goods.entity.GoodsRepaly" >
     <id column="goodsReplayId" property="goodsreplayid" jdbcType="VARCHAR" />
-    <result column="userId" property="userid" jdbcType="VARCHAR" />
+    <result column="goodsId" property="goodsid" jdbcType="VARCHAR"/>
+    <result column="userId" property="userid" jdbcType="VARCHAR"/>
     <result column="goodsReplayTime" property="goodsreplaytime" jdbcType="TIMESTAMP" />
     <result column="goodsReplayContent" property="goodsreplaycontent" jdbcType="VARCHAR" />
+    <association property="userInfo" javaType="com.aygxy.fmaket.user.entity.UserInfo">
+        <id column="userId" property="userid"/>
+        <result column="nickName" property="nickname" />
+        <result column="userIcon" property="usericon"/>
+    </association>
   </resultMap>
   <sql id="Base_Column_List" >
-    goodsReplayId, userId, goodsReplayTime, goodsReplayContent
+    goodsReplayId, goodsId, userId, goodsReplayTime, goodsReplayContent
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    SELECT 
     <include refid="Base_Column_List" />
-    from goodsrepaly
-    where goodsReplayId = #{goodsreplayid,jdbcType=VARCHAR}
+    FROM goodsrepaly
+    WHERE goodsReplayId = #{goodsreplayid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAllFromGoodsId" resultMap="BaseResultMap" parameterType="java.lang.String">
+      SELECT *
+      FROM goodsrepaly g, user_info u
+      WHERE g.goodsId = #{goodsid,jdbcType=VARCHAR} and g.userId = u.userId ORDER BY goodsReplayTime DESC
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from goodsrepaly
     where goodsReplayId = #{goodsreplayid,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.aygxy.fmaket.goods.entity.GoodsRepaly" >
-    insert into goodsrepaly (goodsReplayId, userId, goodsReplayTime, 
+    insert into goodsrepaly (goodsReplayId, goodsId, userId, goodsReplayTime, 
       goodsReplayContent)
-    values (#{goodsreplayid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{goodsreplaytime,jdbcType=TIMESTAMP}, 
+    values (#{goodsreplayid,jdbcType=VARCHAR}, #{goodsid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{goodsreplaytime,jdbcType=TIMESTAMP}, 
       #{goodsreplaycontent,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.aygxy.fmaket.goods.entity.GoodsRepaly" >

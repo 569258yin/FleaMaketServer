@@ -4,27 +4,44 @@
   <resultMap id="BaseResultMap" type="com.aygxy.fmaket.goods.entity.ToRepaly" >
     <id column="torepalyId" property="torepalyid" jdbcType="VARCHAR" />
     <result column="goodsReplayId" property="goodsreplayid" jdbcType="VARCHAR" />
-    <result column="userId" property="userid" jdbcType="VARCHAR" />
     <result column="torepalyContext" property="torepalycontext" jdbcType="VARCHAR" />
     <result column="torepalyTime" property="torepalytime" jdbcType="TIMESTAMP" />
+    <association  column="userId" property="userinfo" javaType="com.aygxy.fmaket.user.entity.UserInfo" select="selectUser">
+        <id column="userId" property="userid"/>
+        <result column="nickName" property="nickname" />
+    </association>
+    <association  column="touserId" property="toUserinfo" javaType="com.aygxy.fmaket.user.entity.UserInfo" select="selectUser">
+        <id column="userId" property="userid"/>
+        <result column="nickName" property="nickname" />
+    </association>
   </resultMap>
   <sql id="Base_Column_List" >
-    torepalyId, goodsReplayId, userId, torepalyContext, torepalyTime
+    torepalyId, goodsReplayId, userId, touserId, torepalyContext, torepalyTime
   </sql>
+  <select id="selectUser" parameterType="String" resultType="com.aygxy.fmaket.user.entity.UserInfo">
+      select userId, nickName 
+      from user_info 
+      where userId = #{0}
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from torepaly
     where torepalyId = #{torepalyid,jdbcType=VARCHAR}
   </select>
+  <select id="selectAllFromRepalyId" resultType="List" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select *
+    from torepaly
+    where goodsReplayId = #{goodsReplayId,jdbcType=VARCHAR};
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from torepaly
     where torepalyId = #{torepalyid,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.aygxy.fmaket.goods.entity.ToRepaly" >
-    insert into torepaly (torepalyId, goodsReplayId, userId, 
+    insert into torepaly (torepalyId, goodsReplayId, userId, touserId, 
       torepalyContext, torepalyTime)
-    values (#{torepalyid,jdbcType=VARCHAR}, #{goodsreplayid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+    values (#{torepalyid,jdbcType=VARCHAR}, #{goodsreplayid,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR},#{touserId,jdbcType=VARCHAR},
       #{torepalycontext,jdbcType=VARCHAR}, #{torepalytime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.aygxy.fmaket.goods.entity.ToRepaly" >
@@ -36,8 +53,11 @@
       <if test="goodsreplayid != null" >
         goodsReplayId,
       </if>
-      <if test="userid != null" >
+      <if test="userId != null" >
         userId,
+      </if>
+      <if test="touserId != null" >
+        touserId,
       </if>
       <if test="torepalycontext != null" >
         torepalyContext,
@@ -53,8 +73,11 @@
       <if test="goodsreplayid != null" >
         #{goodsreplayid,jdbcType=VARCHAR},
       </if>
-      <if test="userid != null" >
-        #{userid,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="touserId != null" >
+        #{touserId,jdbcType=VARCHAR},
       </if>
       <if test="torepalycontext != null" >
         #{torepalycontext,jdbcType=VARCHAR},
@@ -70,8 +93,11 @@
       <if test="goodsreplayid != null" >
         goodsReplayId = #{goodsreplayid,jdbcType=VARCHAR},
       </if>
-      <if test="userid != null" >
-        userId = #{userid,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        userId = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="touserId != null" >
+        userId = #{touserId,jdbcType=VARCHAR},
       </if>
       <if test="torepalycontext != null" >
         torepalyContext = #{torepalycontext,jdbcType=VARCHAR},
@@ -86,6 +112,7 @@
     update torepaly
     set goodsReplayId = #{goodsreplayid,jdbcType=VARCHAR},
       userId = #{userid,jdbcType=VARCHAR},
+      touserId = #{touserId,jdbcType=VARCHAR},
       torepalyContext = #{torepalycontext,jdbcType=VARCHAR},
       torepalyTime = #{torepalytime,jdbcType=TIMESTAMP}
     where torepalyId = #{torepalyid,jdbcType=VARCHAR}

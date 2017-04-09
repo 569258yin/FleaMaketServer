@@ -46,7 +46,7 @@ public class GoodsAction {
 			String body = (String) request.getAttribute("body");
 			Goods goods = GsonUtil.stringToObjectByBean(body, Goods.class);
 			if(goods != null){
-				goods.setGoodsid(UUID.randomUUID().toString()+(int) (100000 + Math.random()*999999));
+				goods.setGoodsid(UUID.randomUUID().toString().replace("-", "")+goods.hashCode());
 				goods.setGoodstime(new Date());
 				boolean result = goodsService.saveGoods(goods);
 				if(result){
