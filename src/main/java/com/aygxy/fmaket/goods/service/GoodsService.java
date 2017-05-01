@@ -38,4 +38,39 @@ public interface GoodsService {
 	 * @return
 	 */
 	public List<Goods> selectGoodsByAddress(int pageNum,int pageSize,double latitude,double longitude);
+	
+	/**
+	 * 通过时间排序分页查询
+	 * @param pageNum
+	 * @param pageSize
+	 * @param goodsTypeId
+	 * @return
+	 */
+	public List<Goods> selectGoodsByGoodsTypeId(int pageNum,int pageSize,int goodsTypeId);
+	
+	/**
+	 * 查询指定用户发布的商品
+	 * @param userId
+	 * @return
+	 */
+	public List<Goods> selectGoodsByUserId(String userId);
+	
+	
+	public Goods selectGoodsById(String goodsId);
+	
+	/**
+	 * 更新
+	 * @param goods
+	 * @return
+	 */
+	public boolean updateGoods(Goods goods);
+	
+	/**
+	 * 删除
+	 * @param goodsId
+	 * @return
+	 */
+	public boolean deleteGoods(String goodsId);
+	
+	
 }

@@ -2,10 +2,16 @@ package com.aygxy.fmaket.foundcase.entity;
 
 import java.util.Date;
 
+import com.aygxy.fmaket.user.entity.UserInfo;
+
 public class FoundCase {
     private String fdcid;
 
     private String userid;
+    
+    private UserInfo userInfo;
+    
+    private Integer fdctype;
 
     private String fdctitle;
 
@@ -13,9 +19,8 @@ public class FoundCase {
 
     private String fdccontext;
 
-    private Date fdcfindtime;
+    private String fdcimage;
 
-    private String fdcfindaddress;
 
     public String getFdcid() {
         return fdcid;
@@ -57,19 +62,31 @@ public class FoundCase {
         this.fdccontext = fdccontext == null ? null : fdccontext.trim();
     }
 
-    public Date getFdcfindtime() {
-        return fdcfindtime;
-    }
+	public String getFdcimage() {
+		return fdcimage;
+	}
 
-    public void setFdcfindtime(Date fdcfindtime) {
-        this.fdcfindtime = fdcfindtime;
-    }
+	public void setFdcimage(String fdcimage) {
+		this.fdcimage = fdcimage;
+	}
 
-    public String getFdcfindaddress() {
-        return fdcfindaddress;
-    }
+	public Integer getFdctype() {
+		return fdctype;
+	}
 
-    public void setFdcfindaddress(String fdcfindaddress) {
-        this.fdcfindaddress = fdcfindaddress == null ? null : fdcfindaddress.trim();
-    }
+	public void setFdctype(Integer fdctype) {
+		this.fdctype = fdctype;
+	}
+
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
+	}
+	
+	
+
+   
 }

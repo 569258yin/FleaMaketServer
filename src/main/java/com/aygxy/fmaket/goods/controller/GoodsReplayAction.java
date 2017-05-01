@@ -70,6 +70,7 @@ public class GoodsReplayAction {
 		request.getSession().setAttribute(GlobalParams.RESULT,resultbody);
 	}
 	
+	
 	@RequestMapping("/sendToReplay.action")
 	@ResponseBody
 	public void sendToReplay(HttpServletRequest request){

@@ -102,4 +102,103 @@ public class GoodsAction {
 		}
 		request.getSession().setAttribute(GlobalParams.RESULT,resultbody);
 	}
+	
+	
+	@RequestMapping("/getGoodsByGoodsTypeId.action")
+	@ResponseBody
+	public void getGoodsByGoodsTypeId(HttpServletRequest request){
+		Body resultbody =  BodyProvider.getFaildBody("获取商品失败");
+		try {
+			String body = (String) request.getAttribute("body");
+			PageJsonData pageJsonData = GsonUtil.stringToObjectByBean(body, PageJsonData.class);
+			if(pageJsonData != null){
+				List<Goods> lists = goodsService.selectGoodsByGoodsTypeId(pageJsonData.getPageNum(), pageJsonData.getPageSize(),
+						pageJsonData.getType());
+				String json = GsonUtil.objectToString(lists);
+				resultbody = BodyProvider.getSuccessBody();
+				resultbody.setElements(json);
+			}
+		} catch (Exception e) {
+			DebugLog.logger.error("获取商品失败", e);
+		}
+		request.getSession().setAttribute(GlobalParams.RESULT,resultbody);
+	}
+	
+	@RequestMapping("/getGoodsByUserId.action")
+	@ResponseBody
+	public void getGoodsByUserId(HttpServletRequest request){
+		Body resultbody =  BodyProvider.getFaildBody("获取商品失败");
+		try {
+			String body = (String) request.getAttribute("body");
+			PageJsonData pageJsonData = GsonUtil.stringToObjectByBean(body, PageJsonData.class);
+			if(pageJsonData != null){
+				List<Goods> lists = goodsService.selectGoodsByUserId(pageJsonData.getId());
+				String json = GsonUtil.objectToString(lists);
+				resultbody = BodyProvider.getSuccessBody();
+				resultbody.setElements(json);
+			}
+		} catch (Exception e) {
+			DebugLog.logger.error("获取商品失败", e);
+		}
+		request.getSession().setAttribute(GlobalParams.RESULT,resultbody);
+	}
+	
+	@RequestMapping("/getGoodsByGoodsId.action")
+	@ResponseBody
+	public void getGoodsByGoodsId(HttpServletRequest request){
+		Body resultbody =  BodyProvider.getFaildBody("获取商品失败");
+		try {
+			String body = (String) request.getAttribute("body");
+			PageJsonData pageJsonData = GsonUtil.stringToObjectByBean(body, PageJsonData.class);
+			if(pageJsonData != null){
+				Goods goods = goodsService.selectGoodsById(pageJsonData.getId());
+				String json = GsonUtil.objectToString(goods);
+				resultbody = BodyProvider.getSuccessBody();
+				resultbody.setElements(json);
+			}
+		} catch (Exception e) {
+			DebugLog.logger.error("获取商品失败", e);
+		}
+		request.getSession().setAttribute(GlobalParams.RESULT,resultbody);
+	}
+	
+	@RequestMapping("/updateGoods.action")
+	@ResponseBody
+	public void updateGoods(HttpServletRequest request){
+		Body resultbody =  BodyProvider.getFaildBody("发布失败");
+		try {
+			String body = (String) request.getAttribute("body");
+			Goods goods = GsonUtil.stringToObjectByBean(body, Goods.class);
+			if(goods != null){
+				goods.setGoodstime(new Date());
+				boolean result = goodsService.updateGoods(goods);
+				if(result){
+					resultbody = BodyProvider.getSuccessBody();
+				}
+			}
+		} catch (Exception e) {
+			DebugLog.logger.error("发布宝贝失败", e);
+		}
+		request.getSession().setAttribute(GlobalParams.RESULT,resultbody);
+	}
+	
+	@RequestMapping("/deleterGoods.action")
+	@ResponseBody
+	public void deleterGoods(HttpServletRequest request){
+		Body resultbody =  BodyProvider.getFaildBody("发布失败");
+		try {
+			String body = (String) request.getAttribute("body");
+			PageJsonData pageJsonData = GsonUtil.stringToObjectByBean(body, PageJsonData.class);
+			if(pageJsonData != null){
+				boolean result = goodsService.deleteGoods(pageJsonData.getId());
+				if(result){
+					resultbody = BodyProvider.getSuccessBody();
+				}
+			}
+		} catch (Exception e) {
+			DebugLog.logger.error("发布宝贝失败", e);
+		}
+		request.getSession().setAttribute(GlobalParams.RESULT,resultbody);
+	}
+	
 }

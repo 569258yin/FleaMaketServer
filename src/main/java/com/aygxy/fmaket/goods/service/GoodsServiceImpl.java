@@ -42,6 +42,37 @@ public class GoodsServiceImpl implements GoodsService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Goods> selectGoodsByGoodsTypeId(int pageNum, int pageSize, int goodsTypeId) {
+		List<Goods> list = goodsMapper.selectGoodsByGoodsTypeId(pageNum, pageSize, goodsTypeId);
+		return list;
+	}
+
+	@Override
+	public List<Goods> selectGoodsByUserId(String userId) {
+		List<Goods> list = goodsMapper.selectGoodsByUserId(userId);
+		return list;
+	}
+	
+	@Override
+	public Goods selectGoodsById(String goodsId) {
+		return goodsMapper.selectByPrimaryKey(goodsId);
+	}
+
+	@Override
+	public boolean updateGoods(Goods goods) {
+		int count = goodsMapper.updateByPrimaryKey(goods);
+		return count == 1 ? true : false;
+	}
+
+	@Override
+	public boolean deleteGoods(String goodsId) {
+		int count = goodsMapper.deleteByPrimaryKey(goodsId);
+		return count == 1 ? true : false;
+	}
+
+	
 	
 
 }

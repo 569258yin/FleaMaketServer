@@ -40,10 +40,23 @@ public interface GoodsMapper {
      * @return
      */
     List<Goods> selectGoodsByPageOrderAddress(@Param("pageNumKey") int pageNum,@Param("pageSizeKey") int pageSize);
-
+    
+    /**
+     * 分页查询所有商品信息 根据时间排序
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    List<Goods> selectGoodsByGoodsTypeId(@Param("pageNumKey") int pageNum,@Param("pageSizeKey") int pageSize,@Param("goodsTypeId")int goodsTypeId);
+    
+    /**
+     * 查询指定用户发布的商品
+     * @param userId
+     * @return
+     */
+    List<Goods> selectGoodsByUserId(@Param("userId") String userId);
+    
     int updateByPrimaryKeySelective(Goods record);
-
-    int updateByPrimaryKeyWithBLOBs(Goods record);
 
     int updateByPrimaryKey(Goods record);
 }

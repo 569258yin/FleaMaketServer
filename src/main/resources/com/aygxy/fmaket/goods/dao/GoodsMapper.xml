@@ -49,6 +49,19 @@
     FROM goods g, user_info u
     WHERE g.userId = u.userId ORDER BY goodsTime DESC
   </select>
+  <select id="selectGoodsByGoodsTypeId" resultMap="ResultMapWithBLOBs" resultType="List">
+    SELECT * 
+    FROM goods g, user_info u 
+    WHERE g.goodsTypeId = #{goodsTypeId,jdbcType=INTEGER} and g.userId = u.userId ORDER BY goodsTime DESC
+  </select>
+  <select id="selectGoodsByUserId" resultMap="ResultMapWithBLOBs" resultType="List">
+    SELECT * 
+    FROM goods g, user_info u 
+    WHERE g.userId = #{userId,jdbcType=VARCHAR} and g.userId = u.userId ORDER BY goodsTime DESC
+  </select>
+  
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     DELETE FROM goods
     WHERE goodsId = #{goodsid,jdbcType=VARCHAR}
@@ -221,7 +234,8 @@
     </set>
     where goodsId = #{goodsid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.aygxy.fmaket.goods.entity.Goods" >
+  
+  <update id="updateByPrimaryKey" parameterType="com.aygxy.fmaket.goods.entity.Goods" >
     update goods
     set userId = #{userid,jdbcType=VARCHAR},
       goodsTypeId = #{goodstypeid,jdbcType=INTEGER},
@@ -238,24 +252,6 @@
       goodsLikeNum = #{goodslikenum,jdbcType=INTEGER},
       goodsRepalynum = #{goodsrepalynum,jdbcType=INTEGER},
       goodsIcon = #{goodsicon,jdbcType=LONGVARCHAR}
-    where goodsId = #{goodsid,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.aygxy.fmaket.goods.entity.Goods" >
-    update goods
-    set userId = #{userid,jdbcType=VARCHAR},
-      goodsTypeId = #{goodstypeid,jdbcType=INTEGER},
-      goodsTitle = #{goodstitle,jdbcType=VARCHAR},
-      goodsTime = #{goodstime,jdbcType=TIMESTAMP},
-      goodsText = #{goodstext,jdbcType=VARCHAR},
-      goodsMoney = #{goodsmoney,jdbcType=VARCHAR},
-      goodSoldmoney = #{goodsoldmoney,jdbcType=VARCHAR},
-      goodSquality = #{goodsquality,jdbcType=VARCHAR},
-      goodsIconNumber = #{goodsiconnumber,jdbcType=INTEGER},
-      userAddress = #{useraddress,jdbcType=VARCHAR},
-      userPhone = #{userphone,jdbcType=VARCHAR},
-      coonectTime = #{coonecttime,jdbcType=VARCHAR},
-      goodsLikeNum = #{goodslikenum,jdbcType=INTEGER},
-      goodsRepalynum = #{goodsrepalynum,jdbcType=INTEGER}
     where goodsId = #{goodsid,jdbcType=VARCHAR}
   </update>
 </mapper>

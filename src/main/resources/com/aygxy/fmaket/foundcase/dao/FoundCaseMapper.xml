@@ -4,32 +4,44 @@
   <resultMap id="BaseResultMap" type="com.aygxy.fmaket.foundcase.entity.FoundCase" >
     <id column="fdcId" property="fdcid" jdbcType="VARCHAR" />
     <result column="userId" property="userid" jdbcType="VARCHAR" />
+    <result column="fdcType" property="fdctype" jdbcType="INTEGER"/>
     <result column="fdcTitle" property="fdctitle" jdbcType="VARCHAR" />
     <result column="fdcTime" property="fdctime" jdbcType="TIMESTAMP" />
     <result column="fdcContext" property="fdccontext" jdbcType="VARCHAR" />
-    <result column="fdcFindTime" property="fdcfindtime" jdbcType="TIMESTAMP" />
-    <result column="fdcFindAddress" property="fdcfindaddress" jdbcType="VARCHAR" />
+    <result column="fdcImage" property="fdcimage" jdbcType="VARCHAR" />
+    <association property="userInfo" javaType="com.aygxy.fmaket.user.entity.UserInfo">
+        <id column="userId" property="userid"/>
+        <result column="nickName" property="nickname" />
+        <result column="userIcon" property="usericon"/>
+    </association>
   </resultMap>
   <sql id="Base_Column_List" >
-    fdcId, userId, fdcTitle, fdcTime, fdcContext, fdcFindTime, fdcFindAddress
+    fdcId, userId, fdcType, fdcTitle, fdcTime, fdcContext, fdcImage
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from foundcase
-    where fdcId = #{fdcid,jdbcType=VARCHAR}
+    SELECT *
+    FROM foundcase f,user_info u
+    WHERE f.fdcId = #{fdcid,jdbcType=VARCHAR} and f.userId = u.userId
+  </select>
+  <select id="selectAllByType" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+      SELECT *
+      FROM foundcase f,user_info u
+      WHERE f.fdcType=#{fdcType,jdbcType=INTEGER} AND f.userId = u.userId ORDER BY f.fdcTime DESC
+  </select>
+  <select id="selectAllFromUser" resultMap="BaseResultMap" parameterType="java.lang.String">
+      SELECT *
+      FROM foundcase f,user_info u
+      WHERE f.userId=#{userId,jdbcType=VARCHAR} AND f.userId = u.userId ORDER BY f.fdcTime DESC
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from foundcase
     where fdcId = #{fdcid,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.aygxy.fmaket.foundcase.entity.FoundCase" >
-    insert into foundcase (fdcId, userId, fdcTitle, 
-      fdcTime, fdcContext, fdcFindTime, 
-      fdcFindAddress)
-    values (#{fdcid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{fdctitle,jdbcType=VARCHAR}, 
-      #{fdctime,jdbcType=TIMESTAMP}, #{fdccontext,jdbcType=VARCHAR}, #{fdcfindtime,jdbcType=TIMESTAMP}, 
-      #{fdcfindaddress,jdbcType=VARCHAR})
+    insert into foundcase (fdcId, userId,fdcType, fdcTitle, 
+      fdcTime, fdcContext, fdcImage)
+    values (#{fdcid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR},#{fdctype,jdbcType=INTEGER}, #{fdctitle,jdbcType=VARCHAR}, 
+      #{fdctime,jdbcType=TIMESTAMP}, #{fdccontext,jdbcType=VARCHAR}, #{fdcimage,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.aygxy.fmaket.foundcase.entity.FoundCase" >
     insert into foundcase
@@ -40,6 +52,9 @@
       <if test="userid != null" >
         userId,
       </if>
+      <if test="fdctype != null" >
+        fdcType,
+      </if>
       <if test="fdctitle != null" >
         fdcTitle,
       </if>
@@ -49,11 +64,8 @@
       <if test="fdccontext != null" >
         fdcContext,
       </if>
-      <if test="fdcfindtime != null" >
-        fdcFindTime,
-      </if>
-      <if test="fdcfindaddress != null" >
-        fdcFindAddress,
+      <if test="fdcimage != null" >
+        fdcImage,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -62,6 +74,9 @@
       </if>
       <if test="userid != null" >
         #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="fdctype != null" >
+        #{fdctype,jdbcType=INTEGER},
       </if>
       <if test="fdctitle != null" >
         #{fdctitle,jdbcType=VARCHAR},
@@ -75,8 +90,8 @@
       <if test="fdcfindtime != null" >
         #{fdcfindtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="fdcfindaddress != null" >
-        #{fdcfindaddress,jdbcType=VARCHAR},
+      <if test="fdcimage != null" >
+        #{fdcimage,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -107,11 +122,11 @@
   <update id="updateByPrimaryKey" parameterType="com.aygxy.fmaket.foundcase.entity.FoundCase" >
     update foundcase
     set userId = #{userid,jdbcType=VARCHAR},
+      fdcType = #{fdctype,jdbcType=INTEGER}
       fdcTitle = #{fdctitle,jdbcType=VARCHAR},
       fdcTime = #{fdctime,jdbcType=TIMESTAMP},
       fdcContext = #{fdccontext,jdbcType=VARCHAR},
-      fdcFindTime = #{fdcfindtime,jdbcType=TIMESTAMP},
-      fdcFindAddress = #{fdcfindaddress,jdbcType=VARCHAR}
+      fdcImage = #{fdcimage,jdbcType=VARCHAR}
     where fdcId = #{fdcid,jdbcType=VARCHAR}
   </update>
 </mapper>
