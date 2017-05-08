@@ -12,7 +12,10 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-
+	
+	<listener>
+	    <listener-class>com.aygxy.fmaket.listener.InitWebServerListener</listener-class>
+	</listener>
 	<!-- spring前端控制器 -->
 	<!-- springmvc servlet -->
 	<servlet>

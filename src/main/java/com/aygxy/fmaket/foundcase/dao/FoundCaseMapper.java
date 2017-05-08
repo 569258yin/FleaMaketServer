@@ -1,5 +1,6 @@
 package com.aygxy.fmaket.foundcase.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -26,4 +27,6 @@ public interface FoundCaseMapper {
     int updateByPrimaryKeySelective(FoundCase record);
 
     int updateByPrimaryKey(FoundCase record);
+    
+    int updateModifyTime(@Param("fdcid")String fdcid, @Param("modifyTime")Date modifyTime);
 }

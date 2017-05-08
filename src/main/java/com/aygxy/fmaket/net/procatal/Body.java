@@ -13,8 +13,15 @@ public class Body implements Serializable {
     private Oelement oelement;
     private String elements;
     private String token;
+    
+    public Body() {
+	}
 
-    public Oelement getOelement() {
+    public Body(Oelement oelement) {
+		this.oelement = oelement;
+	}
+
+	public Oelement getOelement() {
         return oelement;
     }
 

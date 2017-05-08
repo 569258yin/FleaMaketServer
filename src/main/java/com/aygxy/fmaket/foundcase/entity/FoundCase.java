@@ -20,6 +20,8 @@ public class FoundCase {
     private String fdccontext;
 
     private String fdcimage;
+    
+    private Date modifyTime;
 
 
     public String getFdcid() {
@@ -84,6 +86,14 @@ public class FoundCase {
 
 	public void setUserInfo(UserInfo userInfo) {
 		this.userInfo = userInfo;
+	}
+
+	public Date getModifyTime() {
+		return modifyTime;
+	}
+
+	public void setModifyTime(Date modifyTime) {
+		this.modifyTime = modifyTime;
 	}
 	
 	

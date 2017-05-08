@@ -15,10 +15,12 @@
     <result column="userIcon" property="usericon" jdbcType="VARCHAR" />
     <result column="userPhone" property="userphone" jdbcType="VARCHAR" />
     <result column="validateNumber" property="validatenumber" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP"/>
+    <result column="modifyTime" property="modifyTime" jdbcType="TIMESTAMP"/>
   </resultMap>
   <sql id="Base_Column_List" >
     userId, userSex, userAge, userAddress, nickName, signature, qqNumber, wxNumber, colleage, 
-    school, userIcon, userPhone, validateNumber
+    school, userIcon, userPhone, validateNumber, createTime , modifyTime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -35,12 +37,12 @@
       userAddress, nickName, signature, 
       qqNumber, wxNumber, colleage, 
       school, userIcon, userPhone, 
-      validateNumber)
+      validateNumber,createTime,modifyTime)
     values (#{userid,jdbcType=VARCHAR}, #{usersex,jdbcType=INTEGER}, #{userage,jdbcType=INTEGER}, 
       #{useraddress,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR}, 
       #{qqnumber,jdbcType=VARCHAR}, #{wxnumber,jdbcType=VARCHAR}, #{colleage,jdbcType=VARCHAR}, 
       #{school,jdbcType=VARCHAR}, #{usericon,jdbcType=VARCHAR}, #{userphone,jdbcType=VARCHAR}, 
-      #{validatenumber,jdbcType=VARCHAR})
+      #{validatenumber,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{modifyTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.aygxy.fmaket.user.entity.UserInfo" >
     insert into user_info
@@ -182,7 +184,10 @@
       school = #{school,jdbcType=VARCHAR},
       userIcon = #{usericon,jdbcType=VARCHAR},
       userPhone = #{userphone,jdbcType=VARCHAR},
-      validateNumber = #{validatenumber,jdbcType=VARCHAR}
+      validateNumber = #{validatenumber,jdbcType=VARCHAR},
+      modifyTime = #{modifyTime,jdbcType=TIMESTAMP}
     where userId = #{userid,jdbcType=VARCHAR}
   </update>
+  
+  
 </mapper>

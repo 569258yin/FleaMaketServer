@@ -38,6 +38,7 @@ public class FoundCaseAction {
 			if(foundCase != null){
 				foundCase.setFdcid(UUID.randomUUID().toString().replace("-", "")+foundCase.hashCode());
 				foundCase.setFdctime(new Date());
+				foundCase.setModifyTime(foundCase.getFdctime());
 				boolean result = foundCaseService.saveFoundCase(foundCase);
 				if(result){
 					resultbody = BodyProvider.getSuccessBody();
@@ -102,6 +103,25 @@ public class FoundCaseAction {
 			}
 		} catch (Exception e) {
 			DebugLog.logger.error("删除失物招领失败", e);
+		}
+		request.getSession().setAttribute(GlobalParams.RESULT,resultbody);
+	}
+	
+	@RequestMapping("/refreshFoundCase.action")
+	@ResponseBody
+	public void refreshFoundCase(HttpServletRequest request) {
+		Body resultbody =  BodyProvider.getFaildBody("置顶失物招领失败");
+		try {
+			String body = (String) request.getAttribute("body");
+			PageJsonData pageJsonData = GsonUtil.stringToObjectByBean(body, PageJsonData.class);
+			if(pageJsonData != null){
+				boolean result = foundCaseService.refreshFoundCase(pageJsonData.getId(),new Date());
+				if(result){
+					resultbody = BodyProvider.getSuccessBody();
+				}
+			}
+		} catch (Exception e) {
+			DebugLog.logger.error("置顶失物招领失败", e);
 		}
 		request.getSession().setAttribute(GlobalParams.RESULT,resultbody);
 	}

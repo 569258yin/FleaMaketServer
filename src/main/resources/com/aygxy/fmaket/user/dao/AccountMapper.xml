@@ -23,6 +23,13 @@
     where useraccount = #{account,jdbcType=VARCHAR} and userpassword = #{password,jdbcType=VARCHAR}
   </select>
   
+  <select id="selectAccountByaccount" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from account
+    where useraccount = #{account,jdbcType=VARCHAR}
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from account
     where userid = #{userid,jdbcType=VARCHAR}
@@ -61,9 +68,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.aygxy.fmaket.user.entity.Account" >
     update account
     <set >
-      <if test="useraccount != null" >
-        useraccount = #{useraccount,jdbcType=VARCHAR},
-      </if>
       <if test="userpassword != null" >
         userpassword = #{userpassword,jdbcType=VARCHAR},
       </if>
@@ -72,8 +76,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.aygxy.fmaket.user.entity.Account" >
     update account
-    set useraccount = #{useraccount,jdbcType=VARCHAR},
-      userpassword = #{userpassword,jdbcType=VARCHAR}
+    set userpassword = #{userpassword,jdbcType=VARCHAR}
     where userid = #{userid,jdbcType=VARCHAR}
   </update>
 </mapper>

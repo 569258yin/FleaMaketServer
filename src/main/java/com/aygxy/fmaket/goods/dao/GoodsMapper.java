@@ -1,5 +1,6 @@
 package com.aygxy.fmaket.goods.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -59,4 +60,6 @@ public interface GoodsMapper {
     int updateByPrimaryKeySelective(Goods record);
 
     int updateByPrimaryKey(Goods record);
+    
+    int updateModifyTime(@Param("goodsid")String goodsid,@Param("modifyTime")Date modifyTime);
 }

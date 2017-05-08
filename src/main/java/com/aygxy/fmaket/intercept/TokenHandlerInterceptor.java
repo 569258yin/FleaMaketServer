@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -15,9 +16,12 @@ import com.aygxy.fmaket.Application;
 import com.aygxy.fmaket.debug.DebugLog;
 import com.aygxy.fmaket.net.procatal.BaseEngine;
 import com.aygxy.fmaket.net.procatal.Body;
+import com.aygxy.fmaket.net.procatal.BodyProvider;
 import com.aygxy.fmaket.net.procatal.IMessage;
+import com.aygxy.fmaket.net.procatal.Oelement;
 import com.aygxy.fmaket.param.GlobalParams;
 import com.aygxy.fmaket.param.MessageParams;
+import com.aygxy.fmaket.param.OelementType;
 
 /**
  * 对所有.action请求进行拦截，校验token是否合法，对所有不合法的Token都要求其重新登录
@@ -43,15 +47,33 @@ public class TokenHandlerInterceptor extends HandlerInterceptorAdapter {
 			request.setAttribute("body", message.getBody().getElements());
 			//判断是否有token存在，并校验是否过期
 			String token = message.getBody().getToken();
-			if((token == null || "".equals(token)) && !request.getRequestURI().endsWith("account/loginAccount.action")){
-				boolean bool = Application.Instance().checkToken(token);
-				if(!bool){
-					response.getOutputStream().write(MessageParams.TOKEN_ERROR.getBytes("utf-8"));
-					return false;
+			if(StringUtils.isEmpty(token)){
+				if(!request.getRequestURI().endsWith("account/virifyPhone.action") && !request.getRequestURI().endsWith("account/registerAccount.action")){
+					if(!request.getRequestURI().endsWith("account/loginAccount.action")){
+						Body body = new Body(new Oelement(OelementType.TOKEN_FAILD,"Token无效"));
+						body.setElements(MessageParams.TOKEN_ERROR);
+						String result = BaseEngine.getMessageToJson(body, "");
+						response.getOutputStream().write(result.getBytes("utf-8"));
+						return false;
+					}
+				}
+			} else{
+				if(request.getRequestURI().endsWith("account/checkToken.action")){
+					boolean bool = Application.Instance().checkToken(token);
+					if(!bool && !request.getRequestURI().endsWith("account/loginAccount.action")){
+						Body body = new Body(new Oelement(OelementType.TOKEN_FAILD,"Token无效"));
+						body.setElements(MessageParams.TOKEN_ERROR);
+						String result = BaseEngine.getMessageToJson(body, "");
+						response.getOutputStream().write(result.getBytes("utf-8"));
+						return false;
+					}
 				}
 			}
 		}else{
-			response.getOutputStream().write(MessageParams.SIGN_ERROR.getBytes("utf-8"));
+			Body body = new Body(new Oelement(OelementType.LOCAL_CHECK_MD5_ERROR,"安全检查失败"));
+			body.setElements(MessageParams.SIGN_ERROR);
+			String result = BaseEngine.getMessageToJson(body, "");
+			response.getOutputStream().write(result.getBytes("utf-8"));
 			return false;
 		}
 		return super.preHandle(request, response, handler);

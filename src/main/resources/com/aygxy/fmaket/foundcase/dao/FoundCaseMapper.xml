@@ -9,6 +9,7 @@
     <result column="fdcTime" property="fdctime" jdbcType="TIMESTAMP" />
     <result column="fdcContext" property="fdccontext" jdbcType="VARCHAR" />
     <result column="fdcImage" property="fdcimage" jdbcType="VARCHAR" />
+    <result column="modifyTime" property="modifyTime" jdbcType="TIMESTAMP"/> 
     <association property="userInfo" javaType="com.aygxy.fmaket.user.entity.UserInfo">
         <id column="userId" property="userid"/>
         <result column="nickName" property="nickname" />
@@ -16,7 +17,7 @@
     </association>
   </resultMap>
   <sql id="Base_Column_List" >
-    fdcId, userId, fdcType, fdcTitle, fdcTime, fdcContext, fdcImage
+    fdcId, userId, fdcType, fdcTitle, fdcTime, fdcContext, fdcImage, modifyTime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     SELECT *
@@ -26,12 +27,12 @@
   <select id="selectAllByType" resultMap="BaseResultMap" parameterType="java.lang.Integer">
       SELECT *
       FROM foundcase f,user_info u
-      WHERE f.fdcType=#{fdcType,jdbcType=INTEGER} AND f.userId = u.userId ORDER BY f.fdcTime DESC
+      WHERE f.fdcType=#{fdcType,jdbcType=INTEGER} AND f.userId = u.userId ORDER BY f.modifyTime DESC
   </select>
   <select id="selectAllFromUser" resultMap="BaseResultMap" parameterType="java.lang.String">
       SELECT *
       FROM foundcase f,user_info u
-      WHERE f.userId=#{userId,jdbcType=VARCHAR} AND f.userId = u.userId ORDER BY f.fdcTime DESC
+      WHERE f.userId=#{userId,jdbcType=VARCHAR} AND f.userId = u.userId ORDER BY f.modifyTime DESC
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from foundcase
@@ -39,9 +40,9 @@
   </delete>
   <insert id="insert" parameterType="com.aygxy.fmaket.foundcase.entity.FoundCase" >
     insert into foundcase (fdcId, userId,fdcType, fdcTitle, 
-      fdcTime, fdcContext, fdcImage)
+      fdcTime, fdcContext, fdcImage,modifyTime)
     values (#{fdcid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR},#{fdctype,jdbcType=INTEGER}, #{fdctitle,jdbcType=VARCHAR}, 
-      #{fdctime,jdbcType=TIMESTAMP}, #{fdccontext,jdbcType=VARCHAR}, #{fdcimage,jdbcType=VARCHAR})
+      #{fdctime,jdbcType=TIMESTAMP}, #{fdccontext,jdbcType=VARCHAR}, #{fdcimage,jdbcType=VARCHAR},#{modifyTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.aygxy.fmaket.foundcase.entity.FoundCase" >
     insert into foundcase
@@ -124,9 +125,15 @@
     set userId = #{userid,jdbcType=VARCHAR},
       fdcType = #{fdctype,jdbcType=INTEGER}
       fdcTitle = #{fdctitle,jdbcType=VARCHAR},
-      fdcTime = #{fdctime,jdbcType=TIMESTAMP},
       fdcContext = #{fdccontext,jdbcType=VARCHAR},
       fdcImage = #{fdcimage,jdbcType=VARCHAR}
+      modifyTime = #{modifyTime,jdbcType=TIMESTAMP}
     where fdcId = #{fdcid,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateModifyTime">
+    UPDATE foundcase
+    SET modifyTime = #{modifyTime,jdbcType=TIMESTAMP}
+    WHERE fdcId = #{fdcid,jdbcType=VARCHAR}
   </update>
 </mapper>

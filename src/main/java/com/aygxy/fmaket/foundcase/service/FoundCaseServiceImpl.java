@@ -1,5 +1,6 @@
 package com.aygxy.fmaket.foundcase.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -39,6 +40,12 @@ public class FoundCaseServiceImpl implements FoundCaseService{
 	@Override
 	public boolean deleteFoundCaseById(String foundcaseId) {
 		int count = foundCaseMapper.deleteByPrimaryKey(foundcaseId);
+		return count == 1 ? true : false;
+	}
+
+	@Override
+	public boolean refreshFoundCase(String fdcId, Date modifyTime) {
+		int count = foundCaseMapper.updateModifyTime(fdcId, modifyTime);
 		return count == 1 ? true : false;
 	}
 

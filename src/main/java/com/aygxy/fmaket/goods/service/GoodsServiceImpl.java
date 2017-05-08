@@ -1,5 +1,6 @@
 package com.aygxy.fmaket.goods.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -69,6 +70,12 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public boolean deleteGoods(String goodsId) {
 		int count = goodsMapper.deleteByPrimaryKey(goodsId);
+		return count == 1 ? true : false;
+	}
+
+	@Override
+	public boolean refreshGoods(String goodsId, Date modifyDate) {
+		int count = goodsMapper.updateModifyTime(goodsId, modifyDate);
 		return count == 1 ? true : false;
 	}
 

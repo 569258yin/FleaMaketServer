@@ -1,5 +1,6 @@
 package com.aygxy.fmaket.goods.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.aygxy.fmaket.goods.entity.Goods;
@@ -72,5 +73,12 @@ public interface GoodsService {
 	 */
 	public boolean deleteGoods(String goodsId);
 	
+	/**
+	 * 
+	 * @param goodsId
+	 * @param modifyDate
+	 * @return
+	 */
+	public boolean refreshGoods(String goodsId, Date modifyDate);
 	
 }

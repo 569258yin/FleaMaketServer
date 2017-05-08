@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aygxy.fmaket.goods.dao.SearchTagMapper" >
+  <resultMap id="BaseResultMap" type="com.aygxy.fmaket.goods.entity.SearchTag" >
+    <id column="id" property="id" jdbcType="VARCHAR"/>
+    <result column="tag" property="tag" jdbcType="VARCHAR"/>
+    <result column="countTag" property="count" jdbcType="INTEGER"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, tag, countTag
+  </sql>
+  
+  <select id="selectByTag" resultMap="BaseResultMap" parameterType="java.lang.String">
+      select 
+      <include refid="Base_Column_List" />
+      FROM searchtag where tag = #{tag,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectTop" resultMap="BaseResultMap" resultType="List" parameterType="java.lang.Integer" >
+      SELECT * FROM searchtag ORDER BY countTag DESC LIMIT 0, #{num,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from searchtag
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.aygxy.fmaket.goods.entity.SearchTag" >
+    insert into searchtag (id, tag, countTag)
+    values (#{id,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER})
+  </insert>
+  
+  <update id="update" parameterType="com.aygxy.fmaket.goods.entity.SearchTag">
+      update searchtag
+      SET countTag = #{count,jdbcType=INTEGER}
+      where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

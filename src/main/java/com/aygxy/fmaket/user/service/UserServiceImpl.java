@@ -18,4 +18,21 @@ public class UserServiceImpl implements UserService{
 		return userInfoMapper.selectByPrimaryKey(userId);
 	}
 
+	@Override
+	public boolean saveUserInfo(UserInfo userInfo) {
+		int count = userInfoMapper.insert(userInfo);
+		return count == 1;
+	}
+
+	@Override
+	public boolean updateUserInfo(UserInfo userInfo) {
+		int count = userInfoMapper.updateByPrimaryKey(userInfo);
+		return count == 1;
+	}
+
+	@Override
+	public boolean deleteUserInfo(String userId) {
+		return false;
+	}
+
 }

@@ -1,5 +1,6 @@
 package com.aygxy.fmaket.foundcase.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.aygxy.fmaket.foundcase.entity.FoundCase;
@@ -33,5 +34,7 @@ public interface FoundCaseService {
 	
 	
 	public boolean deleteFoundCaseById(String foundcaseId);
+	
+	public boolean refreshFoundCase(String fdcId, Date modifyTime);
 	
 }

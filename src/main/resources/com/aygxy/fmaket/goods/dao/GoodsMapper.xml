@@ -17,6 +17,7 @@
     <result column="coonectTime" property="coonecttime" jdbcType="VARCHAR" />
     <result column="goodsLikeNum" property="goodslikenum" jdbcType="INTEGER" />
     <result column="goodsRepalynum" property="goodsrepalynum" jdbcType="INTEGER" />
+    <result column="modifyTime" property="modifyTime" jdbcType="TIMESTAMP"/>
     <association property="userInfo" javaType="com.aygxy.fmaket.user.entity.UserInfo">
         <id column="userId" property="userid"/>
         <result column="nickName" property="nickname" />
@@ -29,7 +30,7 @@
   <sql id="Base_Column_List" >
     goodsId, userId, goodsTypeId, goodsTitle, goodsTime, goodsText, goodsMoney, goodSoldmoney, 
     goodSquality, goodsIconNumber, userAddress, userPhone, coonectTime, goodsLikeNum, 
-    goodsRepalynum, userId, nikeName, userIcon
+    goodsRepalynum, userId, nikeName, userIcon, modifyTime
   </sql>
   <sql id="Blob_Column_List" >
     goodsIcon
@@ -47,17 +48,17 @@
   <select id="selectGoodsByPageOrderTime" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" resultType="List">
     SELECT *
     FROM goods g, user_info u
-    WHERE g.userId = u.userId ORDER BY goodsTime DESC
+    WHERE g.userId = u.userId ORDER BY g.modifyTime DESC
   </select>
   <select id="selectGoodsByGoodsTypeId" resultMap="ResultMapWithBLOBs" resultType="List">
     SELECT * 
     FROM goods g, user_info u 
-    WHERE g.goodsTypeId = #{goodsTypeId,jdbcType=INTEGER} and g.userId = u.userId ORDER BY goodsTime DESC
+    WHERE g.goodsTypeId = #{goodsTypeId,jdbcType=INTEGER} and g.userId = u.userId ORDER BY g.modifyTime DESC
   </select>
   <select id="selectGoodsByUserId" resultMap="ResultMapWithBLOBs" resultType="List">
     SELECT * 
     FROM goods g, user_info u 
-    WHERE g.userId = #{userId,jdbcType=VARCHAR} and g.userId = u.userId ORDER BY goodsTime DESC
+    WHERE g.userId = #{userId,jdbcType=VARCHAR} and g.userId = u.userId ORDER BY g.modifyTime DESC
   </select>
   
   
@@ -71,14 +72,14 @@
       goodsTitle, goodsTime, goodsText, 
       goodsMoney, goodSoldmoney, goodSquality, 
       goodsIconNumber, userAddress, userPhone, 
-      coonectTime, goodsLikeNum, goodsRepalynum, 
-      goodsIcon)
+      coonectTime, goodsLikeNum, goodsRepalynum,
+      goodsIcon,modifyTime)
     values (#{goodsid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{goodstypeid,jdbcType=INTEGER}, 
       #{goodstitle,jdbcType=VARCHAR}, #{goodstime,jdbcType=TIMESTAMP}, #{goodstext,jdbcType=VARCHAR}, 
       #{goodsmoney,jdbcType=VARCHAR}, #{goodsoldmoney,jdbcType=VARCHAR}, #{goodsquality,jdbcType=VARCHAR}, 
       #{goodsiconnumber,jdbcType=INTEGER}, #{useraddress,jdbcType=VARCHAR}, #{userphone,jdbcType=VARCHAR}, 
       #{coonecttime,jdbcType=VARCHAR}, #{goodslikenum,jdbcType=INTEGER}, #{goodsrepalynum,jdbcType=INTEGER}, 
-      #{goodsicon,jdbcType=LONGVARCHAR})
+      #{goodsicon,jdbcType=LONGVARCHAR}, #{modifyTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.aygxy.fmaket.goods.entity.Goods" >
     insert into goods
@@ -240,7 +241,6 @@
     set userId = #{userid,jdbcType=VARCHAR},
       goodsTypeId = #{goodstypeid,jdbcType=INTEGER},
       goodsTitle = #{goodstitle,jdbcType=VARCHAR},
-      goodsTime = #{goodstime,jdbcType=TIMESTAMP},
       goodsText = #{goodstext,jdbcType=VARCHAR},
       goodsMoney = #{goodsmoney,jdbcType=VARCHAR},
       goodSoldmoney = #{goodsoldmoney,jdbcType=VARCHAR},
@@ -251,7 +251,14 @@
       coonectTime = #{coonecttime,jdbcType=VARCHAR},
       goodsLikeNum = #{goodslikenum,jdbcType=INTEGER},
       goodsRepalynum = #{goodsrepalynum,jdbcType=INTEGER},
-      goodsIcon = #{goodsicon,jdbcType=LONGVARCHAR}
+      goodsIcon = #{goodsicon,jdbcType=LONGVARCHAR},
+      modifyTime = #{modifyTime,jdbcType=TIMESTAMP}
     where goodsId = #{goodsid,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateModifyTime">
+      UPDATE goods
+      SET modifyTime = #{modifyTime,jdbcType=TIMESTAMP}
+      WHERE goodsId = #{goodsid,jdbcType=VARCHAR}
   </update>
 </mapper>

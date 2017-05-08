@@ -6,6 +6,10 @@ public class Account {
     private String useraccount;
 
     private String userpassword;
+    
+    private String phoneNum;
+    
+    private String code;
 
     public String getUserid() {
         return userid;
@@ -30,4 +34,23 @@ public class Account {
     public void setUserpassword(String userpassword) {
         this.userpassword = userpassword == null ? null : userpassword.trim();
     }
+
+	public String getPhoneNum() {
+		return phoneNum;
+	}
+
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
+    
+    
 }

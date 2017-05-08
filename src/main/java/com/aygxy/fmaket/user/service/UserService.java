@@ -11,4 +11,10 @@ public interface UserService {
 	 */
 	public UserInfo getUserInfo(String userId);
 	
+	public boolean saveUserInfo(UserInfo userInfo);
+	
+	public boolean updateUserInfo(UserInfo userInfo);
+	
+	public boolean deleteUserInfo(String userId);
+	
 }
