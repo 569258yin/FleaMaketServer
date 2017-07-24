@@ -14,7 +14,7 @@
     SELECT 
     <include refid="Base_Column_List" />
     FROM goods_search
-    WHERE MATCH(`keyWords`) AGAINST (#{text,jdbcType=VARCHAR})
+    WHERE MATCH(`keyWords`) AGAINST (#{text,jdbcType=VARCHAR} IN BOOLEAN MODE)
   </select>
   
   <delete id="delete" parameterType="java.lang.String" >

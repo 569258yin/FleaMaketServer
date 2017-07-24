@@ -1,4 +1,4 @@
-package com.aygxy.fmaket.bean;
+package com.aygxy.fmaket.file.bean;
 
 public class HttpResult {
 	private String code;

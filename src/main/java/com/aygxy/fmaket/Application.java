@@ -15,6 +15,7 @@ import com.aygxy.fmaket.user.dao.AccountMapper;
 import com.aygxy.fmaket.user.entity.PhoneCode;
 import com.aygxy.fmaket.user.entity.Token;
 import com.aygxy.fmaket.user.service.AccountService;
+import com.aygxy.fmaket.user.service.EasemobIMUsers;
 import com.aygxy.fmaket.user.service.TokenService;
 import com.aygxy.fmaket.user.service.TokenServiceImpl;
 import com.aygxy.fmaket.util.SpringContextUtil;
@@ -33,11 +34,13 @@ public class Application {
 
 	private TokenService tService;
 	private AccountService aService;
+	private EasemobIMUsers easemobIMUsers;
 
 	private Application() {
 		DebugLog.logger.info("================Application Init===============");
 		tService = (TokenService) SpringContextUtil.getBean("tokenServiceImpl");
 		aService = (AccountService) SpringContextUtil.getBean("accountService");
+		easemobIMUsers = new EasemobIMUsers();
 		
 	}
 
@@ -53,7 +56,9 @@ public class Application {
 		}
 		return instance;
 	}
-
+	public EasemobIMUsers getEasemobIMUsers() {
+		return easemobIMUsers;
+	}
 
 	//	//对于单列模式，此不会被执行，因为构造器是私有的
 	//	@PostConstruct

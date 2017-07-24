@@ -30,6 +30,7 @@ class CustomOutputStream extends OutputStream {
 	@Override
 	public final void write(int b) throws IOException {
 		if(b != 10 && b != 13) {
+			
 			toWrite = toWrite.append((char) b);
 		} else if ( b == 10 || b == 13) {
 			if (toWrite.length() > 0) {

@@ -1,4 +1,4 @@
-package com.aygxy.fmaket.bean;
+package com.aygxy.fmaket.file.bean;
 
 import java.util.List;
 

@@ -1,6 +1,7 @@
 package com.aygxy.fmaket.user.controller;
 
 import java.util.Date;
+import java.util.Random;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -25,8 +26,12 @@ import com.aygxy.fmaket.user.entity.Account;
 import com.aygxy.fmaket.user.entity.Token;
 import com.aygxy.fmaket.user.entity.UserInfo;
 import com.aygxy.fmaket.user.service.AccountService;
+import com.aygxy.fmaket.user.service.EasemobIMUsers;
 import com.aygxy.fmaket.user.service.UserService;
 import com.aygxy.fmaket.util.GsonUtil;
+
+import io.swagger.client.model.RegisterUsers;
+import io.swagger.client.model.User;
 
 @Controller
 @RequestMapping("/account")
@@ -122,6 +127,7 @@ public class AccountAction {
 							userInfo.setUserid(account.getUserid());
 							userInfo.setCreateTime(new Date());
 							userInfo.setModifyTime(new Date());
+							userInfo.setUserphone(account.getPhoneNum());
 							userInfo.setUsersex(0);
 							userInfo.setUserage(20);
 							boolean res = false;
@@ -131,7 +137,17 @@ public class AccountAction {
 								DebugLog.logger.error("账号注册成功，但插入用户失败！",e);
 							}
 							if(res){
-								responseBody = BodyProvider.getSuccessBody();
+								RegisterUsers users = new RegisterUsers();
+						        User user = new User().username("EA_"+account.getUserid()).password("ea_passwd_"+account.getUserid());
+						        users.add(user);
+						        Object result = Application.Instance().getEasemobIMUsers().createNewIMUserSingle(users);
+						        if(result != null){
+						        	responseBody = BodyProvider.getSuccessBody();
+						        }else{
+						        	DebugLog.logger.error("账号注册成功，但接入失败！");
+						        	userService.deleteUserInfo(account.getUserid());
+									accountService.deleteAccount(account.getUserid());
+						        }
 							}else{
 								DebugLog.logger.error("账号注册成功，但插入用户失败！");
 								accountService.deleteAccount(account.getUserid());
