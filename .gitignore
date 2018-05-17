@@ -12,6 +12,7 @@
 log/
 Path/
 target/
+.idea/
 
 
 

@@ -1,10 +1,10 @@
 package com.aygxy.fmaket.util;
 
-import static org.junit.Assert.*;
+
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import org.junit.Test;
 
 public class HttpClientUtilTest {
 

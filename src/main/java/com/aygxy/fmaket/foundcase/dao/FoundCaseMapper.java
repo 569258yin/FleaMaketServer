@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-import org.junit.runners.Parameterized.Parameters;
 import org.springframework.stereotype.Repository;
 
 import com.aygxy.fmaket.foundcase.entity.FoundCase;
